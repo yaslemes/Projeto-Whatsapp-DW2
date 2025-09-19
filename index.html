@@ -20,27 +20,5 @@
       <ul id="contactList"></ul>
     </div>
   </div>
-
-  <script>
-    const nameInput = document.getElementById('name');
-    const numberInput = document.getElementById('number');
-    const addBtn = document.getElementById('addBtn');
-    const contactList = document.getElementById('contactList');
-
-    addBtn.addEventListener('click', () => {
-      const name = nameInput.value.trim();
-      const number = numberInput.value.trim();
-      if (!name || !number) return;
-
-      const li = document.createElement('li');
-      li.innerHTML = `<span>${name} — ${number}</span> <button>Excluir</button>`;
-
-      li.querySelector('button').addEventListener('click', () => li.remove());
-
-      contactList.appendChild(li);
-      nameInput.value = '';
-      numberInput.value = '';
-    });
-  </script>
 </body>
 </html>
