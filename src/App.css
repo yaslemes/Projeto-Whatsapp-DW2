@@ -16,8 +16,11 @@
 }
 
 .subtitle {
-  color: #666;
-  margin-bottom: 30px;
+  color: #0a0a0a;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: left;
 }
 
 /* ===== Layout ===== */
@@ -68,64 +71,29 @@
   background-color: #1da851;
 }
 
-/* ===== Tabela de Contatos ===== */
-.contact-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
+/* ===== Inputs lado a lado ===== */
+.form-row {
+  display: flex;
+  gap: 10px;
 }
 
-.contact-table th,
-.contact-table td {
-  border: 1px solid #eee;
-  padding: 10px;
-  text-align: left;
+.form-row input {
+  flex: 1;
 }
 
-.contact-table th {
-  background: #f2f2f2;
-  font-weight: bold;
+@media (max-width: 500px) {
+  .form-row {
+    flex-direction: column;
+  }
 }
 
-.contact-table tr:nth-child(even) {
-  background: #fafafa;
-}
-
-.contact-table button {
-  margin-right: 6px;
-  padding: 6px 10px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: 0.2s;
-}
-
-.contact-table button.delete {
-  background-color: #ff4d4d;
-  color: white;
-}
-
-.contact-table button:not(.delete) {
-  background-color: #25d366;
-  color: white;
-}
-
-/* ===== Texto quando lista está vazia ===== */
-.empty {
-  text-align: center;
-  color: #777;
-  font-style: italic;
-}
-
-/* Lista de contatos */
+/* ===== Lista de contatos ===== */
 .contact-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-/* Card de cada contato */
 .contact-card {
   display: flex;
   justify-content: space-between;
@@ -136,14 +104,25 @@
   border: 1px solid #eee;
 }
 
-/* Nome e número lado a lado */
+/* Agora nome em cima e número embaixo */
 .contact-info {
   display: flex;
-  gap: 20px; /* espaço entre nome e número */
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-/* Botões do contato */
+.contact-info strong {
+  font-size: 15px;
+  color: #333;
+}
+
+.contact-info span {
+  font-size: 13px;
+  color: #666;
+  margin-top: 2px;
+}
+
+/* Botões */
 .contact-actions {
   display: flex;
   gap: 8px;
@@ -175,5 +154,16 @@
   font-style: italic;
 }
 
+/* ===== Labels acima dos inputs ===== */
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 
-
+.form-group label {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}

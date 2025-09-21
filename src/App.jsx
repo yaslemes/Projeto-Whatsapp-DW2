@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import LinkGenerator from "./components/LinkGenerator/LinkGenerator"; // Gerador da sua amiga
+import LinkGenerator from "./components/LinkGenerator/LinkGenerator"; // Gerador da isa
 import ContactForm from "./components/Contacts/ContactForm";
 import ContactList from "./components/Contacts/ContactList";
 import "./App.css";
