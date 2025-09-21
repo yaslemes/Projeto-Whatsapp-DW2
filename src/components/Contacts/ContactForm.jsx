@@ -1,32 +1,33 @@
-import { useState } from 'react';
+import React, { useState } from "react";
 
-export default function ContactForm({ onSaveContact }) {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+// Form para os adicionar contatos
+export default function ContactForm({ onAdd }) {
+  const [name, setName] = useState("");       
+  const [number, setNumber] = useState("");   
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !number) return;
-    onSaveContact({ id: Date.now(), name, number });
-    setName('');
-    setNumber('');
+    if (!name || !number) return;             // Não adiciona se algum campo estiver vazio
+    onAdd({ id: Date.now(), name, number });  // Adiciona contato com id único
+    setName("");                               // Limpa o campo após adicionar
+    setNumber("");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input 
-        type="text" 
-        placeholder="Nome" 
-        value={name} 
-        onChange={(e) => setName(e.target.value)} 
+    <form onSubmit={handleSubmit} className="contact-form">
+      <input
+        type="text"
+        placeholder="Nome do contato"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
-      <input 
-        type="text" 
-        placeholder="Número" 
-        value={number} 
-        onChange={(e) => setNumber(e.target.value)} 
+      <input
+        type="text"
+        placeholder="Número do WhatsApp"
+        value={number}
+        onChange={(e) => setNumber(e.target.value)}
       />
-      <button type="submit">Adicionar</button>
+      <button type="submit">Salvar na Agenda</button>
     </form>
   );
 }

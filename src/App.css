@@ -1,0 +1,179 @@
+/* ===== Container Principal ===== */
+.app-container {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* ===== Títulos ===== */
+.title {
+  color: #25d366;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* ===== Layout ===== */
+.main-content {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.column {
+  flex: 1;
+  max-width: 400px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+/* ===== Formulário ===== */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.contact-form input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.contact-form button {
+  background-color: #25d366;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.contact-form button:hover {
+  background-color: #1da851;
+}
+
+/* ===== Tabela de Contatos ===== */
+.contact-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.contact-table th,
+.contact-table td {
+  border: 1px solid #eee;
+  padding: 10px;
+  text-align: left;
+}
+
+.contact-table th {
+  background: #f2f2f2;
+  font-weight: bold;
+}
+
+.contact-table tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.contact-table button {
+  margin-right: 6px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+.contact-table button.delete {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.contact-table button:not(.delete) {
+  background-color: #25d366;
+  color: white;
+}
+
+/* ===== Texto quando lista está vazia ===== */
+.empty {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+}
+
+/* Lista de contatos */
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Card de cada contato */
+.contact-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid #eee;
+}
+
+/* Nome e número lado a lado */
+.contact-info {
+  display: flex;
+  gap: 20px; /* espaço entre nome e número */
+  align-items: center;
+}
+
+/* Botões do contato */
+.contact-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.contact-actions button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+.contact-actions button.delete {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.contact-actions button:not(.delete) {
+  background-color: #25d366;
+  color: white;
+}
+
+/* Texto quando lista está vazia */
+.empty {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+}
+
+
+

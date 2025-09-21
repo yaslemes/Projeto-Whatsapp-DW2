@@ -1,28 +1,40 @@
-import React, { useState } from 'react';
-import './App.css';
-import LinkGenerator from './components/LinkGenerator/LinkGenerator';
-import ContactForm from './components/Contacts/ContactForm';
-import ContactList from './components/Contacts/ContactList';
+import React, { useState } from "react";
+import LinkGenerator from "./components/LinkGenerator/LinkGenerator"; // Gerador da sua amiga
+import ContactForm from "./components/Contacts/ContactForm";
+import ContactList from "./components/Contacts/ContactList";
+import "./App.css";
 
-function App() {
-  const [contacts, setContacts] = useState([]);
+export default function App() {
+  const [contacts, setContacts] = useState([]); // Lista de contatos
 
-  const handleAddContact = (contact) => {
-    setContacts([...contacts, contact]);
-  };
+  // Função para adicionar contato
+  const addContact = (contact) => setContacts([...contacts, contact]);
 
-  const handleDeleteContact = (id) => {
+  // Função para remover contato
+  const deleteContact = (id) =>
     setContacts(contacts.filter((c) => c.id !== id));
-  };
 
   return (
-    <div className="App" style={{ padding: '1rem' }}>
-      <LinkGenerator />
-      <h2>Agenda de Contatos</h2>
-      <ContactForm onSaveContact={handleAddContact} />
-      <ContactList contacts={contacts} onDelete={handleDeleteContact} />
+    <div className="app-container">
+      <h1 className="title">WhatsHub</h1>
+      <p className="subtitle">
+        O jeito mais rápido de iniciar conversas no WhatsApp. Gere links instantâneos e mantenha seus contatos organizados.
+      </p>
+
+      <div className="main-content">
+        {/* Coluna do Gerador */}
+        <div className="column">
+          <h2>Gerador de Links</h2>
+          <LinkGenerator />
+        </div>
+
+        {/* Coluna da Agenda */}
+        <div className="column">
+          <h2>Agenda de Contatos</h2>
+          <ContactForm onAdd={addContact} />
+          <ContactList contacts={contacts} onDelete={deleteContact} />
+        </div>
+      </div>
     </div>
   );
 }
-
-export default App;

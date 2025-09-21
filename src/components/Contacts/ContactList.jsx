@@ -1,13 +1,36 @@
-import ContactItem from './ContactItem';
+import React from "react";
 
 export default function ContactList({ contacts, onDelete }) {
-  if (contacts.length === 0) return <p>Nenhum contato adicionado ainda.</p>;
+  if (contacts.length === 0) {
+    return <p className="empty">Nenhum contato adicionado ainda.</p>;
+  }
 
   return (
-    <ul>
-      {contacts.map(contact => (
-        <ContactItem key={contact.id} contact={contact} onDelete={onDelete} />
-      ))}
-    </ul>
+    <table className="contact-table">
+
+      <tbody>
+        {contacts.map((contact) => (
+          <tr key={contact.id}>
+            <td>{contact.name}</td>
+            <td>{contact.number}</td>
+            <td>
+              <button
+                onClick={() =>
+                  window.open(
+                    `https://wa.me/55${contact.number.replace(/\D/g, "")}`,
+                    "_blank"
+                  )
+                }
+              >
+                Mensagem
+              </button>
+              <button className="delete" onClick={() => onDelete(contact.id)}>
+                Excluir
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
