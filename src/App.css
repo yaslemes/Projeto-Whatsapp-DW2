@@ -1,4 +1,6 @@
-/* ===== Container Principal ===== */
+/* ===========================
+   Container Principal
+=========================== */
 .app-container {
   font-family: Arial, sans-serif;
   text-align: center;
@@ -7,7 +9,9 @@
   min-height: 100vh;
 }
 
-/* ===== Títulos ===== */
+/* ===========================
+   Títulos
+=========================== */
 .title {
   color: #25d366;
   font-size: 28px;
@@ -19,11 +23,13 @@
   color: #0a0a0a;
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 15px 0;
   text-align: left;
 }
 
-/* ===== Layout ===== */
+/* ===========================
+   Layout Principal
+=========================== */
 .main-content {
   display: flex;
   justify-content: center;
@@ -33,7 +39,7 @@
 
 .column {
   flex: 1;
-  max-width: 400px;
+  max-width: 450px;
   background: #fff;
   padding: 20px;
   border-radius: 12px;
@@ -41,21 +47,17 @@
   text-align: left;
 }
 
-/* ===== Formulário ===== */
+/* ===========================
+   Formulário
+=========================== */
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   margin-bottom: 20px;
 }
 
-.contact-form input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
+/* Botão de salvar/adicionar */
 .contact-form button {
   background-color: #25d366;
   border: none;
@@ -71,23 +73,73 @@
   background-color: #1da851;
 }
 
-/* ===== Inputs lado a lado ===== */
+/* ===========================
+   Inputs lado a lado (Nome + Número)
+=========================== */
 .form-row {
   display: flex;
-  gap: 10px;
+  gap: 5px; /* espaço entre inputs */
 }
 
-.form-row input {
-  flex: 1;
+/* Grupo de input */
+.form-group {
+  display: flex;
+  flex-direction: column;
 }
 
-@media (max-width: 500px) {
-  .form-row {
-    flex-direction: column;
-  }
+.form-group label {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
 }
 
-/* ===== Lista de contatos ===== */
+/* Input e Select padrão */
+.form-group input,
+.form-group select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ===========================
+   Número com DD
+=========================== */
+.number-input {
+  display: flex;
+  gap: 5px; /* espaço entre DD e número */
+}
+
+/* DD */
+.form-group-dd {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* ocupa menos espaço que o número */
+}
+
+/* Número principal */
+.form-group-number {
+  display: flex;
+  flex-direction: column;
+  flex: 2; /* ocupa mais espaço que o DD */
+}
+
+/* Ajustes para select e input do número */
+.form-group-dd select,
+.form-group-number input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 100%;
+}
+
+/* ===========================
+   Lista de Contatos
+=========================== */
 .contact-list {
   display: flex;
   flex-direction: column;
@@ -104,7 +156,7 @@
   border: 1px solid #eee;
 }
 
-/* Agora nome em cima e número embaixo */
+/* Informações do contato */
 .contact-info {
   display: flex;
   flex-direction: column;
@@ -122,7 +174,9 @@
   margin-top: 2px;
 }
 
-/* Botões */
+/* ===========================
+   Botões de ação
+=========================== */
 .contact-actions {
   display: flex;
   gap: 8px;
@@ -147,23 +201,12 @@
   color: white;
 }
 
-/* Texto quando lista está vazia */
+/* ===========================
+   Lista vazia
+=========================== */
 .empty {
   text-align: center;
   color: #777;
   font-style: italic;
 }
 
-/* ===== Labels acima dos inputs ===== */
-.form-group {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  font-size: 13px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #333;
-}

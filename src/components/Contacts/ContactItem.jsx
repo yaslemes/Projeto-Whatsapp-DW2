@@ -1,32 +1,30 @@
 import React from "react";
-import Stack from "@mui/material/Stack";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
+import List from "@mui/material/List";
+import ContactItem from "./ContactItem";
 
-export default function ContactItem({ contact, onDelete }) {
-  const openWhatsApp = () => {
-    const num = contact.number.replace(/\D/g, "");
-    window.open(`https://wa.me/55${num}`, "_blank");
-  };
-
+export default function ContactList({ contacts, onDelete, onEdit }) {
   return (
-    <ListItem
-      divider
-      secondaryAction={
-        <Stack direction="row" spacing={1}>
-          <IconButton color="success" onClick={openWhatsApp}>
-            <WhatsAppIcon />
-          </IconButton>
-          <IconButton color="error" onClick={() => onDelete(contact.id)}>
-            <DeleteIcon />
-          </IconButton>
-        </Stack>
-      }
-    >
-      <ListItemText primary={contact.name} secondary={contact.number} />
-    </ListItem>
+    <div>
+      {/* Título e contador de contatos */}
+      <h3 className="subtitle">
+        Seus Contatos ({contacts.length})
+      </h3>
+
+      {/* Lista de contatos */}
+      <List>
+        {contacts.length > 0 ? (
+          contacts.map((contact) => (
+            <ContactItem
+              key={contact.id}       // ID único do contato
+              contact={contact}      // Dados do contato
+              onDelete={onDelete}    // Função de deletar
+              onEdit={onEdit}        // Função de editar
+            />
+          ))
+        ) : (
+          <p className="empty">Nenhum contato salvo</p> // Mensagem quando lista vazia
+        )}
+      </List>
+    </div>
   );
 }

@@ -1,18 +1,33 @@
 import React, { useState } from "react";
-import LinkGenerator from "./components/LinkGenerator/LinkGenerator"; // Gerador da isa
+import LinkGenerator from "./components/LinkGenerator/LinkGenerator";
 import ContactForm from "./components/Contacts/ContactForm";
 import ContactList from "./components/Contacts/ContactList";
 import "./App.css";
 
 export default function App() {
-  const [contacts, setContacts] = useState([]); // Lista de contatos
+  const [contacts, setContacts] = useState([]); 
+  const [editingContact, setEditingContact] = useState(null);
 
-  // Função para adicionar contato
-  const addContact = (contact) => setContacts([...contacts, contact]);
+  // Adicionar ou atualizar
+  const addOrUpdateContact = (contact) => {
+    if (editingContact) {
+      setContacts(
+        contacts.map((c) => (c.id === editingContact.id ? { ...c, ...contact } : c))
+      );
+      setEditingContact(null); // Sai do modo edição
+    } else {
+      setContacts([...contacts, contact]);
+    }
+  };
 
-  // Função para remover contato
+  // Remover
   const deleteContact = (id) =>
     setContacts(contacts.filter((c) => c.id !== id));
+
+  // Entrar em modo edição
+  const startEdit = (contact) => {
+    setEditingContact(contact);
+  };
 
   return (
     <div className="app-container">
@@ -31,8 +46,15 @@ export default function App() {
         {/* Coluna da Agenda */}
         <div className="column">
           <h2>Agenda de Contatos</h2>
-          <ContactForm onAdd={addContact} />
-          <ContactList contacts={contacts} onDelete={deleteContact} />
+          <ContactForm 
+            onAdd={addOrUpdateContact} 
+            editingContact={editingContact} 
+          />
+          <ContactList 
+            contacts={contacts} 
+            onDelete={deleteContact} 
+            onEdit={startEdit} 
+          />
         </div>
       </div>
     </div>
