@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import LinkGenerator from "./components/LinkGenerator/LinkGenerator";
 import ContactForm from "./components/Contacts/ContactForm";
 import ContactList from "./components/Contacts/ContactList";
+import { PeopleOutlineTwoTone } from "@mui/icons-material";
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+
 import "./App.css";
 
 export default function App() {
@@ -39,13 +42,23 @@ export default function App() {
       <div className="main-content">
         {/* Coluna do Gerador */}
         <div className="column">
-          <h2>Gerador de Links</h2>
+          <div className="titulo-icon">
+             <AttachFileIcon color="success" />
+             <h2>Gerador de Links</h2>
+
+          </div>
+
           <LinkGenerator />
         </div>
 
         {/* Coluna da Agenda */}
         <div className="column">
+          <div className="titulo-icon">
+          <PeopleOutlineTwoTone color="success" />
           <h2>Agenda de Contatos</h2>
+          </div>
+
+
           <ContactForm 
             onAdd={addOrUpdateContact} 
             editingContact={editingContact} 

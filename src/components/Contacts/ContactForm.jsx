@@ -46,7 +46,8 @@ export default function ContactForm({ onAdd }) {
               <option value="31">31</option>
               <option value="41">41</option>
               <option value="51">51</option>
-              {/* Adicione outros DDDs */}
+              {/* Adicionar
+               outros DDDs */}
             </select>
           </div>
 
