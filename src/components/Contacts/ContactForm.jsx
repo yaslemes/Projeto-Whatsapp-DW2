@@ -1,29 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import "./css/ContactForm.css";
 
-export default function ContactForm({ onAdd }) {
+export default function ContactForm({ onAdd, editingContact }) {
   const [name, setName] = useState("");
-  const [dd, setDd] = useState("");
-  const [number, setNumber] = useState("");
+  const [phoneDisplay, setPhoneDisplay] = useState("");
+  const [phoneRaw, setPhoneRaw] = useState("");
+
+  useEffect(() => {
+    if (editingContact) {
+      setName(editingContact.name || "");
+      if (editingContact.rawNumber) {
+        setPhoneRaw(editingContact.rawNumber.replace(/\D/g, ""));
+        setPhoneDisplay(editingContact.number || "");
+      } else {
+        const digits = (editingContact.number || "").replace(/\D/g, "");
+        setPhoneRaw(digits);
+        setPhoneDisplay(editingContact.number || "");
+      }
+    }
+  }, [editingContact]);
+
+  const handlePhoneChange = (value, country, e, formattedValue) => {
+    const digitsOnly = (value || "").replace(/\D/g, "");
+    setPhoneRaw(digitsOnly);
+    setPhoneDisplay(formattedValue || "+" + digitsOnly);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !dd || !number) return;
+    if (!name.trim()) return alert("Preencha o nome.");
+    if (!phoneRaw) return alert("Preencha o telefone.");
 
-    // Formata o número com o DD
-    const formattedNumber = `(${dd}) ${number}`;
-    onAdd({ id: Date.now(), name, number: formattedNumber });
+    const contact = {
+      id: editingContact?.id || Date.now(),
+      name: name.trim(),
+      number: phoneDisplay,
+      rawNumber: phoneRaw,
+    };
 
-    // Limpa os campos após adicionar
+    onAdd(contact);
     setName("");
-    setDd("");
-    setNumber("");
+    setPhoneDisplay("");
+    setPhoneRaw("");
   };
 
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
-      {/* Linha do nome + telefone */}
       <div className="form-row">
-        {/* Nome */}
         <div className="form-group">
           <label>Nome</label>
           <input
@@ -34,38 +59,24 @@ export default function ContactForm({ onAdd }) {
           />
         </div>
 
-        {/* Número com DD */}
-        <div className="number-input">
-          {/* Seleção do DD */}
-          <div className="form-group-dd">
-            <label>DD</label>
-            <select value={dd} onChange={(e) => setDd(e.target.value)}>
-              <option value="">--</option>
-              <option value="11">11</option>
-              <option value="21">21</option>
-              <option value="31">31</option>
-              <option value="41">41</option>
-              <option value="51">51</option>
-              {/* Adicionar
-               outros DDDs */}
-            </select>
-          </div>
-
-          {/* Número principal */}
-          <div className="form-group-number">
-            <label>Número</label>
-            <input
-              type="text"
-              placeholder="Digite o número"
-              value={number}
-              onChange={(e) => setNumber(e.target.value.replace(/\D/g, ""))} // só números
-            />
-          </div>
+        <div className="form-group">
+          <label>Telefone</label>
+          <PhoneInput
+            country="br"
+            value={phoneRaw || ""}
+            onChange={handlePhoneChange}
+            containerClass="phone-input-container"
+            inputClass="phone-input"
+            placeholder="Digite o número"
+            masks={{ br: "(..) .....-...." }}
+            countryCodeEditable={false}
+          />
         </div>
       </div>
 
-      {/* Botão */}
-      <button type="submit">Adicionar</button>
+      <button type="submit">
+        {editingContact ? "Salvar Alterações" : "Adicionar"}
+      </button>
     </form>
   );
 }

@@ -1,30 +1,31 @@
 import React from "react";
-import List from "@mui/material/List";
-import ContactItem from "./ContactItem";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import "./css/ContactItem.css";
 
-export default function ContactList({ contacts, onDelete, onEdit }) {
+export default function ContactItem({ contact, onDelete, onEdit }) {
+  const whatsappLink = `https://wa.me/${contact.rawNumber}?text=${encodeURIComponent(contact.message || "")}`;
+
   return (
-    <div>
-      {/* Título e contador de contatos */}
-      <h3 className="subtitle">
-        Seus Contatos ({contacts.length})
-      </h3>
+    <div className="contact-card">
+      <div className="contact-info">
+        <strong>{contact.name}</strong>
+        <span>{contact.number}</span>
+        {contact.message && <small>💬 {contact.message}</small>}
+      </div>
 
-      {/* Lista de contatos */}
-      <List>
-        {contacts.length > 0 ? (
-          contacts.map((contact) => (
-            <ContactItem
-              key={contact.id}       // ID único do contato
-              contact={contact}      // Dados do contato
-              onDelete={onDelete}    // Função de deletar
-              onEdit={onEdit}        // Função de editar
-            />
-          ))
-        ) : (
-          <p className="empty">Nenhum contato salvo</p> // Mensagem quando lista vazia
-        )}
-      </List>
+      <div className="contact-actions">
+        <a href={whatsappLink} target="_blank" rel="noopener noreferrer" title="Enviar no WhatsApp">
+          <WhatsAppIcon />
+        </a>
+        <button onClick={() => onEdit(contact)} title="Editar">
+          <EditIcon />
+        </button>
+        <button onClick={() => onDelete(contact.id)} className="delete" title="Excluir">
+          <DeleteIcon />
+        </button>
+      </div>
     </div>
   );
 }

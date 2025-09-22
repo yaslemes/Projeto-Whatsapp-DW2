@@ -1,0 +1,80 @@
+/* ===========================
+   Contato Individual (Card)
+=========================== */
+.contact-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid #eee;
+}
+
+/* Informação do contato */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.contact-info strong {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+}
+
+.contact-info span {
+  font-size: 14px;
+  color: #666;
+}
+
+.contact-info small {
+  font-size: 12px;
+  color: #555;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ===========================
+   Ações do Contato
+=========================== */
+.contact-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.contact-actions button,
+.contact-actions a {
+  padding: 4px 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #111827;
+  font-weight: 500;
+  transition: background 0.2s, border 0.2s;
+}
+
+.contact-actions button:hover,
+.contact-actions a:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* Botão Excluir */
+.contact-actions .delete {
+  color: #dc2626;
+  border: 1px solid #00000031;
+  background: #fff;
+}
+
+.contact-actions .delete:hover {
+  background: #fee2e2;
+}

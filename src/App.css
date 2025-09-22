@@ -1,6 +1,4 @@
-/* ===========================
-   Container Principal
-=========================== */
+/* Container Principal */
 .app-container {
   font-family: Arial, sans-serif;
   text-align: center;
@@ -9,9 +7,7 @@
   min-height: 100vh;
 }
 
-/* ===========================
-   Títulos
-=========================== */
+/* Títulos */
 .title {
   color: #25d366;
   font-size: 28px;
@@ -23,20 +19,17 @@
   color: #0a0a0a;
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 15px 0;
+  margin: 15px 0;
   text-align: center;
 }
-.titulo-icon{
+
+.titulo-icon {
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 8px;
-
 }
 
-/* ===========================
-   Layout Principal
-=========================== */
+/* Layout Principal */
 .main-content {
   display: flex;
   justify-content: center;
@@ -50,170 +43,6 @@
   background: #fff;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   text-align: left;
 }
-
-/* ===========================
-   Formulário
-=========================== */
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-/* Botão de salvar/adicionar */
-.contact-form button {
-  background-color: #25d366;
-  border: none;
-  color: white;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.2s;
-}
-
-.contact-form button:hover {
-  background-color: #1da851;
-}
-
-/* ===========================
-   Inputs lado a lado (Nome + Número)
-=========================== */
-.form-row {
-  display: flex;
-  gap: 5px; /* espaço entre inputs */
-}
-
-/* Grupo de input */
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  font-size: 13px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-/* Input e Select padrão */
-.form-group input,
-.form-group select {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* ===========================
-   Número com DD
-=========================== */
-.number-input {
-  display: flex;
-  gap: 5px; /* espaço entre DD e número */
-}
-
-/* DD */
-.form-group-dd {
-  display: flex;
-  flex-direction: column;
-  flex: 1; /* ocupa menos espaço que o número */
-}
-
-/* Número principal */
-.form-group-number {
-  display: flex;
-  flex-direction: column;
-  flex: 2; /* ocupa mais espaço que o DD */
-}
-
-/* Ajustes para select e input do número */
-.form-group-dd select,
-.form-group-number input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  width: 100%;
-}
-
-/* ===========================
-   Lista de Contatos
-=========================== */
-.contact-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.contact-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 15px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  border: 1px solid #eee;
-}
-
-/* Informações do contato */
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.contact-info strong {
-  font-size: 15px;
-  color: #333;
-}
-
-.contact-info span {
-  font-size: 13px;
-  color: #666;
-  margin-top: 2px;
-}
-
-/* ===========================
-   Botões de ação
-=========================== */
-.contact-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.contact-actions button {
-  padding: 6px 10px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: 0.2s;
-}
-
-.contact-actions button.delete {
-  background-color: #ff4d4d;
-  color: white;
-}
-
-.contact-actions button:not(.delete) {
-  background-color: #25d366;
-  color: white;
-}
-
-/* ===========================
-   Lista vazia
-=========================== */
-.empty {
-  text-align: center;
-  color: #777;
-  font-style: italic;
-}
-
