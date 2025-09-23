@@ -1,5 +1,5 @@
 /* ===========================
-   Formulário de Contato
+    Formulário de Contato
 =========================== */
 .contact-form {
   display: flex;
@@ -38,6 +38,7 @@
   font-size: 14px;
   width: 100%;
   box-sizing: border-box;
+  /* Adiciona a transição para efeitos de foco */
   transition: border 0.2s, box-shadow 0.2s;
 }
 
@@ -56,15 +57,23 @@
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  transition: background 0.2s;
+  /* Adiciona uma transição suave para a cor e o tamanho */
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
+/* Efeito ao passar o mouse */
 .contact-form button:hover {
-  background-color: #1da851;
+  background-color: #000000;
+  transform: scale(1.02);
+}
+
+/* Efeito ao clicar */
+.contact-form button:active {
+  transform: scale(0.98);
 }
 
 /* ===========================
-   PhoneInput
+    PhoneInput
 =========================== */
 .phone-input-container {
   width: 100%;
@@ -77,6 +86,13 @@
   border: 1px solid #ccc !important;
   font-size: 14px !important;
   box-sizing: border-box;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.phone-input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(37, 211, 102, 0.5);
+  border-color: #25d366 !important;
 }
 
 .react-tel-input .selected-flag {

@@ -5,26 +5,28 @@ import "./css/ContactForm.css";
 
 export default function ContactForm({ onAdd, editingContact }) {
   const [name, setName] = useState("");
-  const [phoneDisplay, setPhoneDisplay] = useState("");
-  const [phoneRaw, setPhoneRaw] = useState("");
+  const [phoneDisplay, setPhoneDisplay] = useState(""); // formatado para mostrar no input
+  const [phoneRaw, setPhoneRaw] = useState(""); // só os dígitos
 
+  // Preenche quando estiver editando
   useEffect(() => {
     if (editingContact) {
       setName(editingContact.name || "");
-      if (editingContact.rawNumber) {
-        setPhoneRaw(editingContact.rawNumber.replace(/\D/g, ""));
-        setPhoneDisplay(editingContact.number || "");
-      } else {
-        const digits = (editingContact.number || "").replace(/\D/g, "");
-        setPhoneRaw(digits);
-        setPhoneDisplay(editingContact.number || "");
-      }
+      // coloca já o número formatado no input
+      setPhoneDisplay(editingContact.number || "");
+      setPhoneRaw(editingContact.rawNumber || "");
+    } else {
+      setName("");
+      setPhoneDisplay("");
+      setPhoneRaw("");
     }
   }, [editingContact]);
 
   const handlePhoneChange = (value, country, e, formattedValue) => {
+    // `value` já vem com o código do país
     const digitsOnly = (value || "").replace(/\D/g, "");
     setPhoneRaw(digitsOnly);
+    // usa formattedValue para exibir no input
     setPhoneDisplay(formattedValue || "+" + digitsOnly);
   };
 
@@ -41,9 +43,6 @@ export default function ContactForm({ onAdd, editingContact }) {
     };
 
     onAdd(contact);
-    setName("");
-    setPhoneDisplay("");
-    setPhoneRaw("");
   };
 
   return (
@@ -63,7 +62,7 @@ export default function ContactForm({ onAdd, editingContact }) {
           <label>Telefone</label>
           <PhoneInput
             country="br"
-            value={phoneRaw || ""}
+            value={phoneDisplay} // 👈 usa o formatado
             onChange={handlePhoneChange}
             containerClass="phone-input-container"
             inputClass="phone-input"

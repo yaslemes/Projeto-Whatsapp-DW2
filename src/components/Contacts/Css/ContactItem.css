@@ -9,6 +9,15 @@
   background-color: #f9f9f9;
   border-radius: 10px;
   border: 1px solid #eee;
+
+  /* novo: sombra + animação */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* Informação do contato */
@@ -22,6 +31,11 @@
   font-size: 16px;
   color: #333;
   font-weight: bold;
+  transition: color 0.2s ease;
+}
+
+.contact-card:hover .contact-info strong {
+  color: #1a7f37; /* verde no hover */
 }
 
 .contact-info span {
@@ -59,13 +73,16 @@
   text-decoration: none;
   color: #111827;
   font-weight: 500;
-  transition: background 0.2s, border 0.2s;
+
+  /* novo: transições suaves */
+  transition: background 0.25s ease, border 0.25s ease, transform 0.15s ease;
 }
 
 .contact-actions button:hover,
 .contact-actions a:hover {
-  background: #f9fafb;
+  background: #f3f4f6;
   border-color: #9ca3af;
+  transform: translateY(-1px);
 }
 
 /* Botão Excluir */
@@ -77,4 +94,5 @@
 
 .contact-actions .delete:hover {
   background: #fee2e2;
+  border-color: #fca5a5;
 }
