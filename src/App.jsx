@@ -10,28 +10,51 @@ import "./App.css";
 export default function App() {
   const [contacts, setContacts] = useState([]);
   const [editingContact, setEditingContact] = useState(null);
+  const [selectedContacts, setSelectedContacts] = useState([]);
 
-  // Adicionar ou atualizar
   const addOrUpdateContact = (contact) => {
     if (editingContact) {
-      // atualiza o contato existente pelo id que vem do form
       setContacts((prev) =>
         prev.map((c) => (c.id === contact.id ? contact : c))
       );
     } else {
-      // adiciona um novo
       setContacts((prev) => [...prev, contact]);
     }
     setEditingContact(null);
   };
 
-  // Remover
-  const deleteContact = (id) =>
+  const deleteContact = (id) => {
     setContacts((prev) => prev.filter((c) => c.id !== id));
+  };
 
-  // Entrar em modo edição
   const startEdit = (contact) => {
     setEditingContact(contact);
+  };
+
+  const toggleContactSelection = (id) => {
+    setSelectedContacts((prevSelected) => {
+      if (prevSelected.includes(id)) {
+        return prevSelected.filter((contactId) => contactId !== id);
+      } else {
+        return [...prevSelected, id];
+      }
+    });
+  };
+
+  const toggleAllContacts = () => {
+    if (selectedContacts.length === contacts.length) {
+      setSelectedContacts([]);
+    } else {
+      const allContactIds = contacts.map((contact) => contact.id);
+      setSelectedContacts(allContactIds);
+    }
+  };
+
+  const deleteSelectedContacts = () => {
+    setContacts((prevContacts) =>
+      prevContacts.filter((contact) => !selectedContacts.includes(contact.id))
+    );
+    setSelectedContacts([]);
   };
 
   return (
@@ -42,7 +65,6 @@ export default function App() {
       </p>
 
       <div className="main-content">
-        {/* Coluna do Gerador */}
         <div className="column">
           <div className="titulo-icon">
             <AttachFileIcon color="success" />
@@ -51,7 +73,6 @@ export default function App() {
           <LinkGenerator />
         </div>
 
-        {/* Coluna da Agenda */}
         <div className="column">
           <div className="titulo-icon">
             <PeopleOutlineTwoTone color="success" />
@@ -63,10 +84,15 @@ export default function App() {
             onAdd={addOrUpdateContact}
             editingContact={editingContact}
           />
+
           <ContactList
             contacts={contacts}
             onDelete={deleteContact}
             onEdit={startEdit}
+            selectedContacts={selectedContacts}
+            toggleContactSelection={toggleContactSelection}
+            toggleAllContacts={toggleAllContacts}
+            deleteSelectedContacts={deleteSelectedContacts}
           />
         </div>
       </div>

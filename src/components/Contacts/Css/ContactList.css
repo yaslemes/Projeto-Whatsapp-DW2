@@ -1,20 +1,40 @@
-/* Animação para a lista inteira */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+/* Container principal da lista */
+.contact-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
+/* Checkbox "Selecionar Todos" */
+.select-all-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+  padding-left: 1rem; /* Espaço à esquerda */
+}
+
+/* Lista de contatos */
 .contact-list {
-  text-align: center;
-  margin-top: 20px;
-  animation: fadeIn 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.contact-list h3 {
-  color: #000000;
+/* Botão "Excluir Selecionados" */
+.delete-selected-btn {
+  margin-top: 12px;
+  padding: 10px 15px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-.empty {
-  color: #c0c0c0;
-  margin-top: 20px;
+/* Hover no botão */
+.delete-selected-btn:hover {
+  background-color: #b71c1c;
 }

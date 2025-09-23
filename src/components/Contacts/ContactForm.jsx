@@ -4,15 +4,15 @@ import "react-phone-input-2/lib/style.css";
 import "./css/ContactForm.css";
 
 export default function ContactForm({ onAdd, editingContact }) {
-  const [name, setName] = useState("");
-  const [phoneDisplay, setPhoneDisplay] = useState(""); // formatado para mostrar no input
-  const [phoneRaw, setPhoneRaw] = useState(""); // só os dígitos
+  // Estados do formulário
+  const [name, setName] = useState("");            // Nome do contato
+  const [phoneDisplay, setPhoneDisplay] = useState(""); // Telefone formatado para exibir no input
+  const [phoneRaw, setPhoneRaw] = useState("");    // Apenas os dígitos do telefone
 
-  // Preenche quando estiver editando
+  // Preenche o formulário ao editar um contato
   useEffect(() => {
     if (editingContact) {
       setName(editingContact.name || "");
-      // coloca já o número formatado no input
       setPhoneDisplay(editingContact.number || "");
       setPhoneRaw(editingContact.rawNumber || "");
     } else {
@@ -22,32 +22,36 @@ export default function ContactForm({ onAdd, editingContact }) {
     }
   }, [editingContact]);
 
+  // Atualiza o telefone (formatado e só dígitos)
   const handlePhoneChange = (value, country, e, formattedValue) => {
-    // `value` já vem com o código do país
-    const digitsOnly = (value || "").replace(/\D/g, "");
+    const digitsOnly = (value || "").replace(/\D/g, ""); // Remove tudo que não é número
     setPhoneRaw(digitsOnly);
-    // usa formattedValue para exibir no input
-    setPhoneDisplay(formattedValue || "+" + digitsOnly);
+    setPhoneDisplay(formattedValue || "+" + digitsOnly); // Atualiza input com formato
   };
 
+  // Envia o formulário
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name.trim()) return alert("Preencha o nome.");
     if (!phoneRaw) return alert("Preencha o telefone.");
 
     const contact = {
-      id: editingContact?.id || Date.now(),
+      id: editingContact?.id || Date.now(), // Mantém ID se estiver editando
       name: name.trim(),
       number: phoneDisplay,
       rawNumber: phoneRaw,
     };
 
-    onAdd(contact);
+    onAdd(contact); // Chama função para adicionar ou atualizar contato
   };
 
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
+
+      {/* Linha do formulário */}
       <div className="form-row">
+
+        {/* Campo Nome */}
         <div className="form-group">
           <label>Nome</label>
           <input
@@ -58,21 +62,24 @@ export default function ContactForm({ onAdd, editingContact }) {
           />
         </div>
 
+        {/* Campo Telefone */}
         <div className="form-group">
           <label>Telefone</label>
           <PhoneInput
             country="br"
-            value={phoneDisplay} // 👈 usa o formatado
+            value={phoneDisplay}       // Input mostra telefone formatado
             onChange={handlePhoneChange}
             containerClass="phone-input-container"
             inputClass="phone-input"
             placeholder="Digite o número"
             masks={{ br: "(..) .....-...." }}
-            countryCodeEditable={false}
+            countryCodeEditable={false} // Impede editar o código do país
           />
         </div>
+
       </div>
 
+      {/* Botão Adicionar ou Salvar Alterações */}
       <button type="submit">
         {editingContact ? "Salvar Alterações" : "Adicionar"}
       </button>
