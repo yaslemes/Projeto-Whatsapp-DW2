@@ -1,44 +1,53 @@
-/* Container Principal */
 :root {
-  --cor-principal:#25d366
-}
-*{
-  padding: 0;
-  margin: 0;
+  --cor-principal: #25d366;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Container geral */
 .app-container {
   font-family: Arial, sans-serif;
   text-align: center;
-  padding: 20px;
-  padding-top: 40px;
-  background-color: #f5f5f5;
+  padding: 40px 20px 20px;
   min-height: 100vh;
 }
 
-/* Títulos */
+/* Header com título e botão do tema */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+/* Título */
 .title {
   color: var(--cor-principal);
   font-size: 2.3rem;
   font-weight: bold;
-  margin-bottom: 5px;
 }
 
+/* Subtítulo */
 .subtitle {
   color: #0a0a0a;
   font-size: 16px;
   font-weight: bold;
   margin: 15px 0;
-  text-align: center;
 }
 
+/* Ícone + título nas seções */
 .titulo-icon {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* Layout Principal */
+/* Layout principal em duas colunas */
 .main-content {
   display: flex;
   justify-content: center;
@@ -56,3 +65,64 @@
   text-align: left;
 }
 
+/* Botão do tema (lua/sol) */
+.toggle-theme-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: var(--cor-principal);
+  font-size: 1.8rem;
+  padding: 0;
+}
+.toggle-theme-btn:hover {
+  opacity: 0.8;
+}
+
+/* Tema claro */
+.app-container.light {
+  background-color: #f5f5f5;
+  color: #111;
+}
+
+/* Tema escuro */
+.app-container.dark {
+  background-color: #1f1f1f;
+  color: #f5f5f5;
+}
+
+/* Caixas/formulários no escuro */
+.app-container.dark .column {
+  background-color: #2b2b2b;
+  color: #f5f5f5;
+}
+
+/* Inputs no escuro */
+.app-container.dark input,
+.app-container.dark textarea,
+.app-container.dark select {
+  background-color: #3a3a3a;
+  color: #f5f5f5;
+  border: 1px solid #555;
+}
+
+.app-container.dark input::placeholder,
+.app-container.dark textarea::placeholder {
+  color: #ccc;
+}
+
+/* Labels e textos no escuro */
+.app-container.dark label,
+.app-container.dark span,
+.app-container.dark p,
+.app-container.dark h2 {
+  color: #f5f5f5;
+}
+
+/* Botões verdes no escuro */
+.app-container.dark .contact-form button,
+.app-container.dark .delete-selected-btn {
+  background-color: #25d366;
+  color: #000;
+}
