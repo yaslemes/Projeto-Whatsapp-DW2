@@ -22,46 +22,6 @@
   flex: 1;
 }
 
-/* Label do input */
-.form-group label {
-  font-weight: bold;
-  margin-bottom: 4px;
-  font-size: 14px;
-  color: #333;
-}
-
-/* Input de texto (nome, etc.) */
-.form-group input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  width: 100%;
-  box-sizing: border-box;
-  transition: border 0.2s, box-shadow 0.2s;
-}
-
-.form-group input:focus {
-  border-color: #25d366;
-  box-shadow: 0 0 5px rgba(37, 211, 102, 0.5);
-  outline: none;
-}
-
-/* Botão de envio */
-.contact-form button {
-  background-color: #000;
-  border: none;
-  color: white;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-}
-
-.contact-form button:active {
-  transform: scale(0.98); /* efeito de clique */
-}
 
 /* ===========================
    PhoneInput
@@ -83,7 +43,7 @@
 .phone-input:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(37, 211, 102, 0.5);
-  border-color: #25d366 !important;
+  border-color: var(--cor-principal) !important;
 }
 
 .react-tel-input .selected-flag {

@@ -1,0 +1,24 @@
+/* Label do input */
+label {
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Input de texto (nome, etc.) */
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+  border-color: var(--cor-principal);
+  box-shadow: 0 0 5px rgba(37, 211, 102, 0.5);
+  outline: none;
+}

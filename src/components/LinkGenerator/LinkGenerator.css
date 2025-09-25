@@ -1,0 +1,13 @@
+.link-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 20px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+

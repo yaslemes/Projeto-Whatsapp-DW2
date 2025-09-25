@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import "./css/ContactForm.css";
+import "./Css/ContactForm.css";
+import Button from "../Button/Button";
+import Input from "../Input/Input";
 
 export default function ContactForm({ onAdd, editingContact }) {
   // Estados do formulário
@@ -52,15 +54,12 @@ export default function ContactForm({ onAdd, editingContact }) {
       <div className="form-row">
 
         {/* Campo Nome */}
-        <div className="form-group">
-          <label>Nome</label>
-          <input
-            type="text"
-            placeholder="Digite o nome"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
+        <Input
+          label="Nome"
+          placeholder="Digite o nome"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
 
         {/* Campo Telefone */}
         <div className="form-group">
@@ -80,9 +79,9 @@ export default function ContactForm({ onAdd, editingContact }) {
       </div>
 
       {/* Botão Adicionar ou Salvar Alterações */}
-      <button type="submit">
+      <Button type="submit">
         {editingContact ? "Salvar Alterações" : "Adicionar"}
-      </button>
+      </Button>
     </form>
   );
 }

@@ -3,7 +3,7 @@ import Checkbox from "@mui/material/Checkbox";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import ContactItem from "./ContactItem";
-import "./css/ContactList.css";
+import "./Css/ContactList.css";
 
 export default function ContactList({
   contacts,               // Lista de contatos

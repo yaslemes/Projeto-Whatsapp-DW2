@@ -5,7 +5,7 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import "./css/ContactItem.css";
+import "./Css/ContactItem.css";
 
 export default function ContactItem({ contact, onDelete, onEdit, isSelected, onSelect }) {
   // Link do WhatsApp com número e mensagem (se houver)
