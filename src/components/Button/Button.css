@@ -13,3 +13,9 @@ button {
 button:active {
   transform: scale(0.98); /* efeito de clique */
 }
+.buttonIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}

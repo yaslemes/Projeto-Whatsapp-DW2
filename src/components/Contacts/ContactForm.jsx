@@ -4,6 +4,7 @@ import "react-phone-input-2/lib/style.css";
 import "./Css/ContactForm.css";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
 export default function ContactForm({ onAdd, editingContact }) {
   // Estados do formulário
@@ -79,8 +80,9 @@ export default function ContactForm({ onAdd, editingContact }) {
       </div>
 
       {/* Botão Adicionar ou Salvar Alterações */}
-      <Button type="submit">
+      <Button className="buttonIcon" type="submit">
         {editingContact ? "Salvar Alterações" : "Adicionar"}
+        <PersonAddAlt1Icon/>
       </Button>
     </form>
   );
