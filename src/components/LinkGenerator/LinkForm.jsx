@@ -56,7 +56,7 @@ export default function LinkForm() {
               value="https://wa.me/"
             />
             <button>
-              <ContentCopyIcon />
+              <ContentCopyIcon fontSize="small"/>
             </button>
           </div>
         </div>

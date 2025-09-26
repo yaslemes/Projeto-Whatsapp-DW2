@@ -104,6 +104,8 @@
 .app-container.dark input,
 .app-container.dark textarea,
 .app-container.dark,
+.app-container.dark .contact-card,
+.app-container.dark .contact-card .strong,
 .app-container.dark .generated-link-section,
 .app-container.dark select {
   background-color: #3a3a3a;

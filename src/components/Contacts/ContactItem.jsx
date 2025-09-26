@@ -29,7 +29,7 @@ export default function ContactItem({ contact, onDelete, onEdit, isSelected, onS
 
       {/* Informações do contato */}
       <div className="contact-info">
-        <strong>{contact.name}</strong>
+        <p>{contact.name}</p>
         <span>{contact.number}</span>
         {contact.message && <small>💬 {contact.message}</small>} {/* Mostra mensagem se existir */}
       </div>
