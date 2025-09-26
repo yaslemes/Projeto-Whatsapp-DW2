@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import LinkGenerator from "./components/LinkGenerator/LinkGenerator";
 import ContactForm from "./components/Contacts/ContactForm";
 import ContactList from "./components/Contacts/ContactList";
-import { PeopleOutlineTwoTone } from "@mui/icons-material";
+import PeopleOutlineTwoTone from "@mui/icons-material/PeopleOutlineTwoTone";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";

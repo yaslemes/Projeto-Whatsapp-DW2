@@ -1,5 +1,7 @@
 :root {
   --cor-principal: #25d366;
+  --cor-fundo-claro: #f5f5f5;
+  --cor-fundo-escuro: #1f1f1f;
 }
 
 * {
@@ -82,28 +84,30 @@
 
 /* Tema claro */
 .app-container.light {
-  background-color: #f5f5f5;
+  background-color: var(--cor-fundo-claro);
   color: #111;
 }
 
 /* Tema escuro */
 .app-container.dark {
-  background-color: #1f1f1f;
-  color: #f5f5f5;
+  background-color: var(--cor-fundo-escuro);
+  color: var(--cor-fundo-claro);
 }
 
 /* Caixas/formulários no escuro */
 .app-container.dark .column {
-  background-color: #2b2b2b;
-  color: #f5f5f5;
+  background-color: #111;
+  color: var(--cor-fundo-claro);
 }
 
 /* Inputs no escuro */
 .app-container.dark input,
 .app-container.dark textarea,
+.app-container.dark,
+.app-container.dark .generated-link-section,
 .app-container.dark select {
   background-color: #3a3a3a;
-  color: #f5f5f5;
+  color: var(--cor-fundo-claro);
   border: 1px solid #555;
 }
 
@@ -117,12 +121,11 @@
 .app-container.dark span,
 .app-container.dark p,
 .app-container.dark h2 {
-  color: #f5f5f5;
+  color: var(--cor-fundo-claro);
 }
 
 /* Botões verdes no escuro */
-.app-container.dark .contact-form button,
 .app-container.dark .delete-selected-btn {
-  background-color: #25d366;
+  background-color: var(--cor-principal);
   color: #000;
 }
