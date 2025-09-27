@@ -52,3 +52,35 @@
   height: 40px;
   font-size: 14px;
 }
+.audio-icon-container {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.link-form .form-group {
+  position: relative; /* necessário para o ícone ficar dentro do campo */
+}
+.microphone-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.2s;
+}
+
+.microphone-btn.recording {
+  animation: pulse 1s infinite;
+  color: red;
+}
+
+@keyframes pulse {
+  0% { transform: translateY(-50%) scale(1); }
+  50% { transform: translateY(-50%) scale(1.3); }
+  100% { transform: translateY(-50%) scale(1); }
+}
+

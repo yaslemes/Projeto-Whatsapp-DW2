@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LinkGenerator from "./components/LinkGenerator/LinkGenerator";
 import ContactForm from "./components/Contacts/ContactForm";
 import ContactList from "./components/Contacts/ContactList";
@@ -9,24 +9,75 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 
 import "./App.css";
 
+// Componente de Chat de Voz com transcrição
+function VoiceChat() {
+  const [transcript, setTranscript] = useState("");
+  const [listening, setListening] = useState(false);
+  const [recognition, setRecognition] = useState(null);
+
+  useEffect(() => {
+    if (!("webkitSpeechRecognition" in window)) {
+      alert("Seu navegador não suporta reconhecimento de voz.");
+      return;
+    }
+    const speechRecognition = new window.webkitSpeechRecognition();
+    speechRecognition.continuous = true;
+    speechRecognition.interimResults = true;
+    speechRecognition.lang = "pt-BR";
+
+    speechRecognition.onresult = (event) => {
+      let interimTranscript = "";
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const result = event.results[i];
+        if (result.isFinal) {
+          setTranscript((prev) => prev + result[0].transcript + " ");
+        } else {
+          interimTranscript += result[0].transcript;
+        }
+      }
+    };
+
+    setRecognition(speechRecognition);
+  }, []);
+
+  const toggleListening = () => {
+    if (!recognition) return;
+    if (listening) {
+      recognition.stop();
+      setListening(false);
+    } else {
+      recognition.start();
+      setListening(true);
+    }
+  };
+
+  return (
+    <div className="voice-chat">
+      <button onClick={toggleListening}>
+        {listening ? "Parar gravação" : "Gravar áudio"}
+      </button>
+      <div className="transcript">
+        <h3>Transcrição:</h3>
+        <p>{transcript}</p>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
-  // lista de contatos
+  // Lista de contatos
   const [contacts, setContacts] = useState([]);
-  // contato que está sendo editado
   const [editingContact, setEditingContact] = useState(null);
-  // ids dos contatos selecionados
   const [selectedContacts, setSelectedContacts] = useState([]);
-  // tema atual (claro ou escuro)
   const [theme, setTheme] = useState("light");
-  // termo de pesquisa
   const [searchTerm, setSearchTerm] = useState("");
 
-  // alterna entre tema claro e escuro
+  // Alterna tema claro/escuro
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  // adiciona ou atualiza um contato
+  // Adiciona ou atualiza contato
   const addOrUpdateContact = (contact) => {
     if (editingContact) {
       setContacts((prev) =>
@@ -38,17 +89,14 @@ export default function App() {
     setEditingContact(null);
   };
 
-  // exclui um contato
   const deleteContact = (id) => {
     setContacts((prev) => prev.filter((c) => c.id !== id));
   };
 
-  // inicia a edição de um contato
   const startEdit = (contact) => {
     setEditingContact(contact);
   };
 
-  // seleciona ou desseleciona um contato
   const toggleContactSelection = (id) => {
     setSelectedContacts((prevSelected) =>
       prevSelected.includes(id)
@@ -57,7 +105,6 @@ export default function App() {
     );
   };
 
-  // seleciona ou desseleciona todos os contatos
   const toggleAllContacts = () => {
     if (selectedContacts.length === contacts.length) {
       setSelectedContacts([]);
@@ -66,7 +113,6 @@ export default function App() {
     }
   };
 
-  // exclui todos os contatos selecionados
   const deleteSelectedContacts = () => {
     setContacts((prevContacts) =>
       prevContacts.filter((contact) => !selectedContacts.includes(contact.id))
@@ -74,7 +120,7 @@ export default function App() {
     setSelectedContacts([]);
   };
 
-  // contatos filtrados pela pesquisa
+  // Filtra contatos por pesquisa
   const filteredContacts = contacts.filter(
     (c) =>
       c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -83,7 +129,7 @@ export default function App() {
 
   return (
     <div className={`app-container ${theme}`}>
-      {/* Cabeçalho: título + botão para trocar tema */}
+      {/* Cabeçalho */}
       <div className="header">
         <h1 className="title">WhatsUp!</h1>
         <button
@@ -95,15 +141,13 @@ export default function App() {
         </button>
       </div>
 
-      {/* Subtítulo */}
       <p className="subtitle">
         O jeito mais rápido de iniciar conversas no WhatsApp. Gere links
-        instantâneos e mantenha seus contatos organizados.
+        instantâneos, mantenha seus contatos organizados e use chat de voz.
       </p>
 
-      {/* Área principal com duas colunas */}
       <div className="main-content">
-        {/* Coluna do gerador de links */}
+        {/* Coluna Gerador de Links */}
         <div className="column">
           <div className="titulo-icon">
             <AttachFileIcon color="success" />
@@ -112,7 +156,7 @@ export default function App() {
           <LinkGenerator />
         </div>
 
-        {/* Coluna da agenda de contatos */}
+        {/* Coluna Agenda + Chat de Voz */}
         <div className="column">
           <div className="titulo-icon">
             <PeopleOutlineTwoTone color="success" />
@@ -125,7 +169,6 @@ export default function App() {
             editingContact={editingContact}
           />
 
-          {/* 🔍 Barra de pesquisa */}
           <input
             type="text"
             placeholder="Pesquisar contato..."
@@ -144,10 +187,11 @@ export default function App() {
             deleteSelectedContacts={deleteSelectedContacts}
           />
 
-          {/* Exibir mensagem se nenhum contato encontrado */}
           {filteredContacts.length === 0 && contacts.length > 0 && (
             <p className="no-results">Nenhum contato encontrado.</p>
           )}
+
+        
         </div>
       </div>
     </div>

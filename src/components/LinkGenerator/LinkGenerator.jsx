@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./LinkGenerator.css";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
@@ -7,76 +7,114 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import SendIcon from '@mui/icons-material/Send';
+import MicIcon from '@mui/icons-material/Mic'; // ícone de áudio
 
 export default function LinkGenerator() {
-  const [phoneDisplay, setPhoneDisplay] = useState(""); // Telefone formatado para exibir no input
-  const [phoneRaw, setPhoneRaw] = useState(""); // Apenas os dígitos do telefone
+  const [phoneDisplay, setPhoneDisplay] = useState("");
+  const [phoneRaw, setPhoneRaw] = useState("");
   const [mensagem, setMensagem] = useState("");
   const [linkGerado, setLinkGerado] = useState("");
+  const [listening, setListening] = useState(false);
+  const [recognition, setRecognition] = useState(null);
 
-  // Atualiza o telefone (formatado e só dígitos)
-  const handlePhoneChange = (value, country, e, formattedValue) => {
-    const digitsOnly = (value || "").replace(/\D/g, ""); // Remove tudo que não é número
-    setPhoneRaw(digitsOnly);
-    setPhoneDisplay(formattedValue || "+" + digitsOnly); // Atualiza input com formato
+  // Inicializa reconhecimento de voz
+  useEffect(() => {
+    if (!("webkitSpeechRecognition" in window)) return;
+    const speechRecognition = new window.webkitSpeechRecognition();
+    speechRecognition.continuous = true;
+    speechRecognition.interimResults = true;
+    speechRecognition.lang = "pt-BR";
+
+    speechRecognition.onresult = (event) => {
+      let interimTranscript = "";
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const result = event.results[i];
+        if (result.isFinal) {
+          setMensagem(prev => prev + result[0].transcript + " ");
+        } else {
+          interimTranscript += result[0].transcript;
+        }
+      }
+    };
+
+    setRecognition(speechRecognition);
+  }, []);
+
+  const toggleListening = () => {
+    if (!recognition) return;
+    if (listening) {
+      recognition.stop();
+      setListening(false);
+    } else {
+      recognition.start();
+      setListening(true);
+    }
   };
 
-  // Função para preparar a mensagem e gerar o link
+  const handlePhoneChange = (value, country, e, formattedValue) => {
+    const digitsOnly = (value || "").replace(/\D/g, "");
+    setPhoneRaw(digitsOnly);
+    setPhoneDisplay(formattedValue || "+" + digitsOnly);
+  };
+
   const prepararMensagem = () => {
-    if (!phoneRaw) {
-      return alert("Preencha o número.");
-    }
+    if (!phoneRaw) return alert("Preencha o número.");
     const mensagemCodificada = encodeURIComponent(mensagem || "");
     const link = `https://wa.me/${phoneRaw}?text=${mensagemCodificada}`;
     setLinkGerado(link);
   };
-// Função para copiar o link gerado
+
   const copiarLink = () => {
     if (!linkGerado) return;
     navigator.clipboard.writeText(linkGerado);
     alert("Link copiado com sucesso!");
   };
-  // Função para abrir o link no WhatsApp
-    const abrirWhatsApp = () => {
-    if (!linkGerado) {
-      return alert("Gere o link primeiro!");
-    }
+
+  const abrirWhatsApp = () => {
+    if (!linkGerado) return alert("Gere o link primeiro!");
     window.open(linkGerado, "_blank");
   };
 
   return (
     <form className="link-form">
-      {/* Campo Número */}
+      {/* Número de telefone */}
       <div className="form-group">
         <label>Seu Número</label>
         <PhoneInput
           country="br"
-          value={phoneDisplay} // Input mostra telefone formatado
+          value={phoneDisplay}
           onChange={handlePhoneChange}
           containerClass="phone-input-container"
           inputClass="phone-input"
           placeholder="Digite o número"
           masks={{ br: "(..) .....-...." }}
-          countryCodeEditable={false} // Impede editar o código do país
+          countryCodeEditable={false}
         />
       </div>
 
-      {/* Campo Mensagem */}
-      <Input
-        label="Mensagem (opcional)"
-        id="mensagem"
-        name="mensagem"
-        value={mensagem}
-        placeholder="Digite sua mensagem aqui..."
-        onChange={(e) => setMensagem(e.target.value)}
-      />
+      {/* Mensagem com ícone de áudio à esquerda */}
+      <div className="form-group">
+        <label>Mensagem (opcional)</label>
+        <div style={{ position: "relative" }}>
+          <Input
+            id="mensagem"
+            name="mensagem"
+            value={mensagem}
+            placeholder="Digite sua mensagem aqui..."
+            onChange={(e) => setMensagem(e.target.value)}
+          />
+          <div className="audio-icon-container" onClick={toggleListening}>
+            <MicIcon style={{ color: listening ? "red" : "gray" }} />
+          </div>
+        </div>
+      </div>
 
       <Button className="buttonIcon" type="button" onClick={prepararMensagem}>
         Preparar Mensagem
         <SendIcon fontSize="small"/>
       </Button>
 
-      {/* Link Gerado */}
+      {/* Link gerado */}
       <div className="generated-link-section">
         <div className="form-group">
           <label htmlFor="link-gerado">Link gerado:</label>
@@ -92,10 +130,9 @@ export default function LinkGenerator() {
               <ContentCopyIcon fontSize="small" />
             </button>
           </div>
-         {/* Botão Abrir */}
-        <Button className="buttonIcon" type="button" onClick={abrirWhatsApp}> 
-          <WhatsAppIcon/>
-          Abrir WhatsApp
+          <Button className="buttonIcon" type="button" onClick={abrirWhatsApp}> 
+            <WhatsAppIcon/>
+            Abrir WhatsApp
           </Button>
         </div>
       </div>
