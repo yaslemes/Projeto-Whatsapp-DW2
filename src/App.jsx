@@ -18,6 +18,8 @@ export default function App() {
   const [selectedContacts, setSelectedContacts] = useState([]);
   // tema atual (claro ou escuro)
   const [theme, setTheme] = useState("light");
+  // termo de pesquisa
+  const [searchTerm, setSearchTerm] = useState("");
 
   // alterna entre tema claro e escuro
   const toggleTheme = () => {
@@ -72,6 +74,13 @@ export default function App() {
     setSelectedContacts([]);
   };
 
+  // contatos filtrados pela pesquisa
+  const filteredContacts = contacts.filter(
+    (c) =>
+      c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      c.rawNumber.includes(searchTerm)
+  );
+
   return (
     <div className={`app-container ${theme}`}>
       {/* Cabeçalho: título + botão para trocar tema */}
@@ -88,7 +97,8 @@ export default function App() {
 
       {/* Subtítulo */}
       <p className="subtitle">
-        O jeito mais rápido de iniciar conversas no WhatsApp. Gere links instantâneos e mantenha seus contatos organizados.
+        O jeito mais rápido de iniciar conversas no WhatsApp. Gere links
+        instantâneos e mantenha seus contatos organizados.
       </p>
 
       {/* Área principal com duas colunas */}
@@ -115,8 +125,17 @@ export default function App() {
             editingContact={editingContact}
           />
 
+          {/* 🔍 Barra de pesquisa */}
+          <input
+            type="text"
+            placeholder="Pesquisar contato..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+
           <ContactList
-            contacts={contacts}
+            contacts={filteredContacts}
             onDelete={deleteContact}
             onEdit={startEdit}
             selectedContacts={selectedContacts}
@@ -124,6 +143,11 @@ export default function App() {
             toggleAllContacts={toggleAllContacts}
             deleteSelectedContacts={deleteSelectedContacts}
           />
+
+          {/* Exibir mensagem se nenhum contato encontrado */}
+          {filteredContacts.length === 0 && contacts.length > 0 && (
+            <p className="no-results">Nenhum contato encontrado.</p>
+          )}
         </div>
       </div>
     </div>

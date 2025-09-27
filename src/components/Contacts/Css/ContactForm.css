@@ -55,3 +55,38 @@
   height: 40px;
   font-size: 14px;
 }
+.form-error {
+  color: red;
+  font-size: 14px;
+  margin: 5px 0 10px;
+}
+
+.buttonIcon.add-mode {
+  background-color: #25d366; /* verde */
+}
+
+.buttonIcon.edit-mode {
+  background-color: #ffa500; /* laranja */
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  border-color: #25d366;
+  box-shadow: 0 0 4px rgba(37, 211, 102, 0.4);
+}
+
+.no-results {
+  color: #666;
+  font-size: 14px;
+  margin-top: 10px;
+}

@@ -4,15 +4,16 @@ import "react-phone-input-2/lib/style.css";
 import "./Css/ContactForm.css";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 
 export default function ContactForm({ onAdd, editingContact }) {
   // Estados do formulário
-  const [name, setName] = useState("");            // Nome do contato
-  const [phoneDisplay, setPhoneDisplay] = useState(""); // Telefone formatado para exibir no input
-  const [phoneRaw, setPhoneRaw] = useState("");    // Apenas os dígitos do telefone
+  const [name, setName] = useState(""); // Nome do contato
+  const [phoneDisplay, setPhoneDisplay] = useState(""); // Telefone formatado
+  const [phoneRaw, setPhoneRaw] = useState(""); // Apenas dígitos
+  const [error, setError] = useState(""); // Mensagem de erro
 
-  // Preenche o formulário ao editar um contato
+  // Preenche o formulário ao editar
   useEffect(() => {
     if (editingContact) {
       setName(editingContact.name || "");
@@ -25,41 +26,50 @@ export default function ContactForm({ onAdd, editingContact }) {
     }
   }, [editingContact]);
 
-  // Atualiza o telefone (formatado e só dígitos)
+  // Atualiza telefone
   const handlePhoneChange = (value, country, e, formattedValue) => {
-    const digitsOnly = (value || "").replace(/\D/g, ""); // Remove tudo que não é número
+    const digitsOnly = (value || "").replace(/\D/g, "");
     setPhoneRaw(digitsOnly);
-    setPhoneDisplay(formattedValue || "+" + digitsOnly); // Atualiza input com formato
+    setPhoneDisplay(formattedValue || "+" + digitsOnly);
   };
 
-  // Envia o formulário
+  // Envia formulário
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name.trim()) return alert("Preencha o nome.");
-    if (!phoneRaw) return alert("Preencha o telefone.");
+    if (!name.trim()) return setError("⚠️ Preencha o nome.");
+    if (!phoneRaw) return setError("⚠️ Preencha o telefone.");
+    if (phoneRaw.length < 10)
+      return setError("⚠️ Número inválido. Digite um número completo.");
 
     const contact = {
-      id: editingContact?.id || Date.now(), // Mantém ID se estiver editando
+      id: editingContact?.id || Date.now(),
       name: name.trim(),
       number: phoneDisplay,
       rawNumber: phoneRaw,
     };
 
-    onAdd(contact); // Chama função para adicionar ou atualizar contato
+    onAdd(contact);
+    setError("");
+
+    // Limpar formulário se for um novo contato
+    if (!editingContact) {
+      setName("");
+      setPhoneDisplay("");
+      setPhoneRaw("");
+    }
   };
 
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
-
       {/* Linha do formulário */}
       <div className="form-row">
-
         {/* Campo Nome */}
         <Input
           label="Nome"
           placeholder="Digite o nome"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          autoFocus
         />
 
         {/* Campo Telefone */}
@@ -67,22 +77,27 @@ export default function ContactForm({ onAdd, editingContact }) {
           <label>Telefone</label>
           <PhoneInput
             country="br"
-            value={phoneDisplay}       // Input mostra telefone formatado
+            value={phoneDisplay}
             onChange={handlePhoneChange}
             containerClass="phone-input-container"
             inputClass="phone-input"
             placeholder="Digite o número"
             masks={{ br: "(..) .....-...." }}
-            countryCodeEditable={false} // Impede editar o código do país
+            countryCodeEditable={false}
           />
         </div>
-
       </div>
 
-      {/* Botão Adicionar ou Salvar Alterações */}
-      <Button className="buttonIcon" type="submit">
-        {editingContact ? "Salvar Alterações" : "Adicionar"}
-        <PersonAddAlt1Icon/>
+      {/* Erros */}
+      {error && <p className="form-error">{error}</p>}
+
+      {/* Botão Adicionar/Salvar */}
+      <Button
+        className={`buttonIcon ${editingContact ? "edit-mode" : "add-mode"}`}
+        type="submit"
+      >
+        {editingContact ? "Salvar Alterações" : "Adicionar"}{" "}
+        <PersonAddAlt1Icon />
       </Button>
     </form>
   );
