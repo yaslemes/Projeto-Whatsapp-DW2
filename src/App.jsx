@@ -79,12 +79,15 @@ export default function App() {
 
   // Adiciona ou atualiza contato
   const addOrUpdateContact = (contact) => {
+      console.log("Adicionando contato:", contact);
+
     if (editingContact) {
       setContacts((prev) =>
         prev.map((c) => (c.id === contact.id ? contact : c))
       );
     } else {
-      setContacts((prev) => [...prev, contact]);
+        const newContact = { ...contact, id: crypto.randomUUID(),}; // cria ID único
+      setContacts((prev) => [...prev, newContact]);
     }
     setEditingContact(null);
   };
@@ -164,7 +167,7 @@ export default function App() {
           </div>
 
           <ContactForm
-            key={editingContact?.id || "add-mode"}
+            key={editingContact?.id || contacts.length}
             onAdd={addOrUpdateContact}
             editingContact={editingContact}
           />
