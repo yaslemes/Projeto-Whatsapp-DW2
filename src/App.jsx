@@ -6,7 +6,7 @@ import PeopleOutlineTwoTone from "@mui/icons-material/PeopleOutlineTwoTone";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-
+import { supabase } from "./supabaseClient";
 import "./App.css";
 
 // Componente de Chat de Voz com transcrição
@@ -77,34 +77,41 @@ export default function App() {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  // Adiciona ou atualiza contato
-  const addOrUpdateContact = (contact) => {
-      console.log("Adicionando contato:", contact);
-
+  
+  // Adicionar ou atualizar contato
+  const addOrUpdateContact = async (contact) => {
     if (editingContact) {
-      setContacts((prev) =>
-        prev.map((c) => (c.id === contact.id ? contact : c))
-      );
+      const { error } = await supabase
+        .from("contacts")
+        .update({ name: contact.name, number: contact.number })
+        .eq("id", contact.id);
+      if (error) console.error(error);
     } else {
-        const newContact = { ...contact, id: crypto.randomUUID(),}; // cria ID único
-      setContacts((prev) => [...prev, newContact]);
+      const { error } = await supabase
+        .from("contacts")
+        .insert([{ name: contact.name, number: contact.number }]);
+      if (error) console.error(error);
     }
     setEditingContact(null);
+     await fetchContacts(); // Atualiza lista
   };
 
-  const deleteContact = (id) => {
-    setContacts((prev) => prev.filter((c) => c.id !== id));
+  // Deletar contato individual
+  const deleteContact = async (id) => {
+    const { error } = await supabase.from("contacts").delete().eq("id", id);
+    if (error) console.error(error);
+    fetchContacts();
   };
 
-  const startEdit = (contact) => {
-    setEditingContact(contact);
-  };
+  // Editar contato
+  const startEdit = (contact) => setEditingContact(contact);
 
+  // Seleção múltipla
   const toggleContactSelection = (id) => {
-    setSelectedContacts((prevSelected) =>
-      prevSelected.includes(id)
-        ? prevSelected.filter((contactId) => contactId !== id)
-        : [...prevSelected, id]
+    setSelectedContacts((prev) =>
+      prev.includes(id)
+        ? prev.filter((contactId) => contactId !== id)
+        : [...prev, id]
     );
   };
 
@@ -116,19 +123,34 @@ export default function App() {
     }
   };
 
-  const deleteSelectedContacts = () => {
-    setContacts((prevContacts) =>
-      prevContacts.filter((contact) => !selectedContacts.includes(contact.id))
-    );
+  // ✅ Deletar contatos selecionados
+  const deleteSelectedContacts = async () => {
+    const { error } = await supabase
+      .from("contacts")
+      .delete()
+      .in("id", selectedContacts);
+    if (error) console.error(error);
     setSelectedContacts([]);
+    fetchContacts();
   };
 
-  // Filtra contatos por pesquisa
+  // Filtra contatos
   const filteredContacts = contacts.filter(
     (c) =>
       c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      c.rawNumber.includes(searchTerm)
+      c.number.includes(searchTerm)
   );
+
+  const fetchContacts = async () => {
+  const { data, error } = await supabase
+    .from("contacts")
+    .select("id, name, number, created_at")
+    .order("created_at", { ascending: false });
+
+  if (error) console.error(error);
+  else setContacts(data);
+};
+
 
   return (
     <div className={`app-container ${theme}`}>

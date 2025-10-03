@@ -42,7 +42,6 @@ export default function ContactForm({ onAdd, editingContact }) {
       return setError("⚠️ Número inválido. Digite um número completo.");
 
     const contact = {
-      id: editingContact?.id || crypto.randomUUID(),
       name: name.trim(),
       number: phoneDisplay,
       rawNumber: phoneRaw,
