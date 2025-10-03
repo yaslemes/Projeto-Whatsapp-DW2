@@ -77,7 +77,6 @@ export default function App() {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  
   // Adicionar ou atualizar contato
   const addOrUpdateContact = async (contact) => {
     if (editingContact) {
@@ -93,7 +92,7 @@ export default function App() {
       if (error) console.error(error);
     }
     setEditingContact(null);
-     await fetchContacts(); // Atualiza lista
+    await fetchContacts(); // Atualiza lista
   };
 
   // Deletar contato individual
@@ -142,15 +141,17 @@ export default function App() {
   );
 
   const fetchContacts = async () => {
-  const { data, error } = await supabase
-    .from("contacts")
-    .select("id, name, number, created_at")
-    .order("created_at", { ascending: false });
+    const { data, error } = await supabase
+      .from("contacts")
+      .select("id, name, number, created_at")
+      .order("created_at", { ascending: false });
 
-  if (error) console.error(error);
-  else setContacts(data);
-};
-
+    if (error) console.error(error);
+    else setContacts(data);
+  };
+  useEffect(() => {
+    fetchContacts();
+  }, []);
 
   return (
     <div className={`app-container ${theme}`}>
@@ -215,8 +216,6 @@ export default function App() {
           {filteredContacts.length === 0 && contacts.length > 0 && (
             <p className="no-results">Nenhum contato encontrado.</p>
           )}
-
-        
         </div>
       </div>
     </div>
