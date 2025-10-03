@@ -8,7 +8,9 @@ import "react-phone-input-2/lib/style.css";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import SendIcon from "@mui/icons-material/Send";
 import MicIcon from "@mui/icons-material/Mic"; 
+import QRCode from "react-qr-code";
 import QrCode2Icon from '@mui/icons-material/QrCode2';
+import Alert from '@mui/material/Alert';
 
 export default function LinkGenerator() {
   const [phoneDisplay, setPhoneDisplay] = useState("");
@@ -18,6 +20,7 @@ export default function LinkGenerator() {
   const [listening, setListening] = useState(false);
   const [recognition, setRecognition] = useState(null);
   const [showQRCode, setShowQRCode] = useState(false);
+  const [erro, setErro] = useState("");
 
   // Inicializa reconhecimento de voz
   useEffect(() => {
@@ -68,7 +71,8 @@ export default function LinkGenerator() {
 
   const copiarLink = () => {
     if (!linkGerado){
-      alert("Gere o link primeiro!");
+      setErro("Gere o link primeiro!");
+      setTimeout(() => setErro(""), 2000);
     return;
   }
     navigator.clipboard.writeText(linkGerado);
@@ -76,13 +80,21 @@ export default function LinkGenerator() {
   };
 
   const abrirWhatsApp = () => {
-    if (!linkGerado) return alert("Gere o link primeiro!");
+    if (!linkGerado){
+      setErro("Gere o link primeiro!");
+      setTimeout(() => setErro(""), 2000);
+      return;
+    } 
     window.open(linkGerado, "_blank");
   };
 
   // Função para alternar QR Code
   const toggleQRCode = () => {
-    if (!linkGerado) return alert("Gere o link primeiro!");
+    if (!linkGerado){
+      setErro("Gere o link primeiro!");
+      setTimeout(() => setErro(""), 2000);
+      return;
+    }
     setShowQRCode((prev) => !prev);
   };
 
@@ -144,9 +156,10 @@ export default function LinkGenerator() {
               <QrCode2Icon fontSize="small" />
             </button>
           </div>
+          {erro && <Alert severity="error">{erro}</Alert>}
           {showQRCode && linkGerado && (
             <div className="qrcode-container">
-              <QrCode2Icon value={linkGerado} size={128} />
+              <QRCode value={linkGerado} size={128} />
             </div>
           )}
           <Button className="buttonIcon" type="button" onClick={abrirWhatsApp}>
