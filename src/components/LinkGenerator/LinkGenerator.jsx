@@ -5,9 +5,10 @@ import Input from "../Input/Input";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import SendIcon from '@mui/icons-material/Send';
-import MicIcon from '@mui/icons-material/Mic'; // ícone de áudio
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import SendIcon from "@mui/icons-material/Send";
+import MicIcon from "@mui/icons-material/Mic"; 
+import QrCode2Icon from '@mui/icons-material/QrCode2';
 
 export default function LinkGenerator() {
   const [phoneDisplay, setPhoneDisplay] = useState("");
@@ -16,6 +17,7 @@ export default function LinkGenerator() {
   const [linkGerado, setLinkGerado] = useState("");
   const [listening, setListening] = useState(false);
   const [recognition, setRecognition] = useState(null);
+  const [showQRCode, setShowQRCode] = useState(false);
 
   // Inicializa reconhecimento de voz
   useEffect(() => {
@@ -30,7 +32,7 @@ export default function LinkGenerator() {
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i];
         if (result.isFinal) {
-          setMensagem(prev => prev + result[0].transcript + " ");
+          setMensagem((prev) => prev + result[0].transcript + " ");
         } else {
           interimTranscript += result[0].transcript;
         }
@@ -65,7 +67,10 @@ export default function LinkGenerator() {
   };
 
   const copiarLink = () => {
-    if (!linkGerado) return;
+    if (!linkGerado){
+      alert("Gere o link primeiro!");
+    return;
+  }
     navigator.clipboard.writeText(linkGerado);
     alert("Link copiado com sucesso!");
   };
@@ -73,6 +78,12 @@ export default function LinkGenerator() {
   const abrirWhatsApp = () => {
     if (!linkGerado) return alert("Gere o link primeiro!");
     window.open(linkGerado, "_blank");
+  };
+
+  // Função para alternar QR Code
+  const toggleQRCode = () => {
+    if (!linkGerado) return alert("Gere o link primeiro!");
+    setShowQRCode((prev) => !prev);
   };
 
   return (
@@ -111,7 +122,7 @@ export default function LinkGenerator() {
 
       <Button className="buttonIcon" type="button" onClick={prepararMensagem}>
         Preparar Mensagem
-        <SendIcon fontSize="small"/>
+        <SendIcon fontSize="small" />
       </Button>
 
       {/* Link gerado */}
@@ -129,9 +140,17 @@ export default function LinkGenerator() {
             <button onClick={copiarLink} type="button" title="Copiar link">
               <ContentCopyIcon fontSize="small" />
             </button>
+            <button onClick={toggleQRCode} type="button" title="Gerar QR Code">
+              <QrCode2Icon fontSize="small" />
+            </button>
           </div>
-          <Button className="buttonIcon" type="button" onClick={abrirWhatsApp}> 
-            <WhatsAppIcon/>
+          {showQRCode && linkGerado && (
+            <div className="qrcode-container">
+              <QrCode2Icon value={linkGerado} size={128} />
+            </div>
+          )}
+          <Button className="buttonIcon" type="button" onClick={abrirWhatsApp}>
+            <WhatsAppIcon />
             Abrir WhatsApp
           </Button>
         </div>
