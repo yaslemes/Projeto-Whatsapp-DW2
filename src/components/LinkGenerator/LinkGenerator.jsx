@@ -7,10 +7,10 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import SendIcon from "@mui/icons-material/Send";
-import MicIcon from "@mui/icons-material/Mic"; 
+import MicIcon from "@mui/icons-material/Mic";
 import QRCode from "react-qr-code";
-import QrCode2Icon from '@mui/icons-material/QrCode2';
-import Alert from '@mui/material/Alert';
+import QrCode2Icon from "@mui/icons-material/QrCode2";
+import Alert from "@mui/material/Alert";
 
 export default function LinkGenerator() {
   const [phoneDisplay, setPhoneDisplay] = useState("");
@@ -21,6 +21,7 @@ export default function LinkGenerator() {
   const [recognition, setRecognition] = useState(null);
   const [showQRCode, setShowQRCode] = useState(false);
   const [erro, setErro] = useState("");
+  const [copied, setCopied] = useState("");
 
   // Inicializa reconhecimento de voz
   useEffect(() => {
@@ -70,27 +71,28 @@ export default function LinkGenerator() {
   };
 
   const copiarLink = () => {
-    if (!linkGerado){
-      setErro("Gere o link primeiro!");
-      setTimeout(() => setErro(""), 2000);
-    return;
-  }
-    navigator.clipboard.writeText(linkGerado);
-    alert("Link copiado com sucesso!");
-  };
-
-  const abrirWhatsApp = () => {
-    if (!linkGerado){
+    if (!linkGerado) {
       setErro("Gere o link primeiro!");
       setTimeout(() => setErro(""), 2000);
       return;
-    } 
+    }
+    navigator.clipboard.writeText(linkGerado).then(() => {
+      setCopied("Link copiado com sucesso!");
+      setTimeout(() => setCopied(""), 2000);
+    });
+  };
+
+  const abrirWhatsApp = () => {
+    if (!linkGerado) {
+      setErro("Gere o link primeiro!");
+      setTimeout(() => setErro(""), 2000);
+      return;
+    }
     window.open(linkGerado, "_blank");
   };
 
-  // Função para alternar QR Code
   const toggleQRCode = () => {
-    if (!linkGerado){
+    if (!linkGerado) {
       setErro("Gere o link primeiro!");
       setTimeout(() => setErro(""), 2000);
       return;
@@ -99,7 +101,13 @@ export default function LinkGenerator() {
   };
 
   return (
-    <form className="link-form">
+    <form
+      className="link-form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        prepararMensagem();
+      }}
+    >
       {/* Número de telefone */}
       <div className="form-group">
         <label>Seu Número</label>
@@ -115,13 +123,14 @@ export default function LinkGenerator() {
         />
       </div>
 
-      {/* Mensagem com ícone de áudio à esquerda */}
+      {/* Mensagem com ícone de áudio */}
       <div className="form-group">
         <label>Mensagem (opcional)</label>
         <div style={{ position: "relative" }}>
           <Input
             id="mensagem"
             name="mensagem"
+            type="text"
             value={mensagem}
             placeholder="Digite sua mensagem aqui..."
             onChange={(e) => setMensagem(e.target.value)}
@@ -132,7 +141,7 @@ export default function LinkGenerator() {
         </div>
       </div>
 
-      <Button className="buttonIcon" type="button" onClick={prepararMensagem}>
+      <Button className="buttonIcon" type="submit">
         Preparar Mensagem
         <SendIcon fontSize="small" />
       </Button>
@@ -157,11 +166,13 @@ export default function LinkGenerator() {
             </button>
           </div>
           {erro && <Alert severity="error">{erro}</Alert>}
+
           {showQRCode && linkGerado && (
             <div className="qrcode-container">
               <QRCode value={linkGerado} size={128} />
             </div>
           )}
+
           <Button className="buttonIcon" type="button" onClick={abrirWhatsApp}>
             <WhatsAppIcon />
             Abrir WhatsApp

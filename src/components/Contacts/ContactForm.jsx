@@ -13,7 +13,6 @@ export default function ContactForm({ onAdd, editingContact }) {
   const [phoneRaw, setPhoneRaw] = useState(""); // Apenas dígitos
   const [error, setError] = useState(""); // Mensagem de erro
 
-  // Preenche o formulário ao editar
   useEffect(() => {
     if (editingContact) {
       setName(editingContact.name || "");
@@ -26,13 +25,11 @@ export default function ContactForm({ onAdd, editingContact }) {
     }
   }, [editingContact]);
 
-  // Atualiza telefone
   const handlePhoneChange = (value, country, e, formattedValue) => {
     const digitsOnly = (value || "").replace(/\D/g, "");
     setPhoneRaw(digitsOnly);
     setPhoneDisplay(formattedValue || "+" + digitsOnly);
   };
-
   // Envia formulário
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,7 +46,6 @@ export default function ContactForm({ onAdd, editingContact }) {
 
     onAdd(contact);
     setError("");
-
     // Limpar formulário se for um novo contato
     if (!editingContact) {
       setName("");
@@ -69,6 +65,13 @@ export default function ContactForm({ onAdd, editingContact }) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           autoFocus
+          // Adiciona onKeyDown para evitar bugs com Enter em componentes personalizados
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleSubmit(e);
+            }
+          }}
         />
 
         {/* Campo Telefone */}
@@ -83,6 +86,13 @@ export default function ContactForm({ onAdd, editingContact }) {
             placeholder="Digite o número"
             masks={{ br: "(..) .....-...." }}
             countryCodeEditable={false}
+            // Captura Enter também aqui
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleSubmit(e);
+              }
+            }}
           />
         </div>
       </div>
