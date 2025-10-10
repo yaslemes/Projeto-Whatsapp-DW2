@@ -25,7 +25,7 @@ export default function ContactList({
             checked={selectedContacts.length === contacts.length} // Marca se todos selecionados
             onChange={toggleAllContacts}                          // Alterna seleção de todos
             icon={<RadioButtonUncheckedIcon />}                   // Ícone desmarcado
-            checkdedIcon={<CheckCircleIcon />}                     // Ícone marcado
+            checkedIcon={<CheckCircleIcon />}                     // Ícone marcado
             sx={{ color: "black", "&.Mui-checked": { color: "black" }, transform: "scale(0.8)" }}
           />
           <span>Selecionar Todos</span>

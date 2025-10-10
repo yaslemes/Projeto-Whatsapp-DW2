@@ -17,7 +17,9 @@ export default function ContactForm({ onAdd, editingContact }) {
     if (editingContact) {
       setName(editingContact.name || "");
       setPhoneDisplay(editingContact.number || "");
-      setPhoneRaw(editingContact.rawNumber || "");
+
+      const digitsOnly = (editingContact.number || "").replace(/\D/g, "");
+      setPhoneRaw(digitsOnly);
     } else {
       setName("");
       setPhoneDisplay("");

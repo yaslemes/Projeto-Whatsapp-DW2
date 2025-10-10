@@ -78,22 +78,35 @@ export default function App() {
   };
 
   // Adicionar ou atualizar contato
-  const addOrUpdateContact = async (contact) => {
-    if (editingContact) {
-      const { error } = await supabase
-        .from("contacts")
-        .update({ name: contact.name, number: contact.number })
-        .eq("id", contact.id);
-      if (error) console.error(error);
-    } else {
-      const { error } = await supabase
-        .from("contacts")
-        .insert([{ name: contact.name, number: contact.number }]);
-      if (error) console.error(error);
-    }
-    setEditingContact(null);
-    await fetchContacts(); // Atualiza lista
-  };
+ const addOrUpdateContact = async (contact) => {
+  if (editingContact) {
+    // Atualiza registro existente usando o ID do editingContact
+    const { error } = await supabase
+      .from("contacts")
+      .update({
+        name: contact.name,
+        number: contact.number,
+      })
+      .eq("id", editingContact.id);
+
+    if (error) console.error(error);
+  } else {
+    // Cria novo contato
+    const { error } = await supabase
+      .from("contacts")
+      .insert([
+        {
+          name: contact.name,
+          number: contact.number,
+        }
+      ]);
+
+    if (error) console.error(error);
+  }
+
+  setEditingContact(null);  // limpa o modo edição
+  await fetchContacts();    // atualiza lista
+};
 
   // Deletar contato individual
   const deleteContact = async (id) => {
