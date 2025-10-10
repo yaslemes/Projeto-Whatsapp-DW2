@@ -122,7 +122,7 @@ export default function App() {
     }
   };
 
-  // ✅ Deletar contatos selecionados
+  //  Deletar contatos selecionados
   const deleteSelectedContacts = async () => {
     const { error } = await supabase
       .from("contacts")
@@ -153,6 +153,9 @@ export default function App() {
     fetchContacts();
   }, []);
 
+  const [selectedContact, setSelectedContact] = useState(null);
+
+
   return (
     <div className={`app-container ${theme}`}>
       {/* Cabeçalho */}
@@ -179,7 +182,8 @@ export default function App() {
             <AttachFileIcon color="success" />
             <h2>Gerador de Links</h2>
           </div>
-          <LinkGenerator />
+          <LinkGenerator  selectedContact={selectedContact} />
+
         </div>
 
         {/* Coluna Agenda + Chat de Voz */}
@@ -207,6 +211,7 @@ export default function App() {
             contacts={filteredContacts}
             onDelete={deleteContact}
             onEdit={startEdit}
+            onMessage={setSelectedContact}     
             selectedContacts={selectedContacts}
             toggleContactSelection={toggleContactSelection}
             toggleAllContacts={toggleAllContacts}

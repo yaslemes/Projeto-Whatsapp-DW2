@@ -9,6 +9,7 @@ export default function ContactList({
   contacts,               // Lista de contatos
   onDelete,               // Função para deletar um contato
   onEdit,                 // Função para editar um contato
+  onMessage,              // Função para preencher LinkGenerator
   selectedContacts,       // IDs dos contatos selecionados
   toggleContactSelection, // Seleciona/desmarca um contato individual
   toggleAllContacts,      // Seleciona/desmarca todos os contatos
@@ -24,7 +25,7 @@ export default function ContactList({
             checked={selectedContacts.length === contacts.length} // Marca se todos selecionados
             onChange={toggleAllContacts}                          // Alterna seleção de todos
             icon={<RadioButtonUncheckedIcon />}                   // Ícone desmarcado
-            checkedIcon={<CheckCircleIcon />}                     // Ícone marcado
+            checkdedIcon={<CheckCircleIcon />}                     // Ícone marcado
             sx={{ color: "black", "&.Mui-checked": { color: "black" }, transform: "scale(0.8)" }}
           />
           <span>Selecionar Todos</span>
@@ -40,6 +41,7 @@ export default function ContactList({
             contact={contact}
             onDelete={onDelete}
             onEdit={onEdit}
+            onMessage={onMessage}              // Passa função para preencher LinkGenerator
             isSelected={selectedContacts.includes(contact.id)} // Indica se o contato está selecionado
             onSelect={() => toggleContactSelection(contact.id)} // Alterna seleção individual
           />

@@ -12,7 +12,7 @@ import QRCode from "react-qr-code";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import Alert from "@mui/material/Alert";
 
-export default function LinkGenerator() {
+export default function LinkGenerator({ selectedContact }) {
   const [phoneDisplay, setPhoneDisplay] = useState("");
   const [phoneRaw, setPhoneRaw] = useState("");
   const [mensagem, setMensagem] = useState("");
@@ -22,6 +22,17 @@ export default function LinkGenerator() {
   const [showQRCode, setShowQRCode] = useState(false);
   const [erro, setErro] = useState("");
   const [copied, setCopied] = useState("");
+
+ 
+    // Atualiza campos quando um contato é selecionado
+  useEffect(() => {
+    if (selectedContact) {
+      setPhoneRaw(selectedContact.rawNumber);
+      setPhoneDisplay(selectedContact.number); // ou formatted
+      setMensagem(selectedContact.message || "");
+    }
+  }, [selectedContact]);
+  
 
   // Inicializa reconhecimento de voz
   useEffect(() => {
