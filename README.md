@@ -7,14 +7,25 @@ Aplicação web desenvolvida como projeto da disciplina Desenvolvimento Web II (
 - Yasmym Lemes
 
 ## 🚀 Acesse o Projeto
-[https://projeto-whatsapp-dw2.vercel.app/](https://projeto-whatsapp-dw2.vercel.app/)
+🔗 [https://projeto-whatsapp-dw2.vercel.app/](https://projeto-whatsapp-dw2.vercel.app/)
 
 ## 🧭 Visão Geral
+
 O **WhatsUp!** é desenvolvido com **React JS**, **CSS puro** e **Material UI**, integrado com **Supabase** para gerenciamento de contatos e **Vercel** para deploy com serverless functions.  
 A aplicação conta com uma **página inicial simples**, contendo um botão **“Começar”** que leva o usuário para a interface principal do sistema.  
 O sistema possui duas áreas principais: **Gerador de Links** e **Agenda de Contatos**, oferecendo praticidade, interatividade e eficiência ao usuário.
 
+
+<p align="center">
+  <img src="https://i.imgur.com/AlRuzU3.png" alt="Mockup da Interface WhatsUp!" width="800">
+</p>
+
+<p align="center"><em>Interface responsiva do WhatsUp! exibida em tablet, laptop e smartphone.</em></p>
+
+
+
 ## 🧩 Funcionalidades Principais
+
 ### 🏠 Página Inicial
 - Página de boas-vindas simples com botão “Começar”  
 - Direciona o usuário para a aplicação principal
@@ -32,6 +43,7 @@ O sistema possui duas áreas principais: **Gerador de Links** e **Agenda de Cont
 - Cada contato contém: `id`, `created_at`, `name` e `number`
 
 ## 💡 Funcionalidades Extras
+
 ### 🎙️ Transcrição de Áudio para Mensagens
 - O usuário pode gravar sua voz diretamente na aplicação  
 - A gravação é convertida automaticamente em texto e preenchida no campo de mensagem do Gerador de Links  
@@ -45,6 +57,7 @@ O sistema possui duas áreas principais: **Gerador de Links** e **Agenda de Cont
 - Alternância rápida entre temas claro e escuro para melhor experiência visual  
 
 ## 🛠️ Tecnologias Utilizadas
+
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
@@ -60,24 +73,24 @@ O sistema possui duas áreas principais: **Gerador de Links** e **Agenda de Cont
 ![Web Speech API](https://img.shields.io/badge/Web%20Speech%20API-4285F4?style=for-the-badge&logo=google&logoColor=white)
 ![Lucide](https://img.shields.io/badge/Lucide-000000?style=for-the-badge&logo=lucide&logoColor=white)
 
-### Frontend
-
-- React — Biblioteca principal da interface
-- CSS Puro — Estilização personalizada
-- Material UI (MUI) — Componentes visuais
-- react-phone-input-2 — Entrada de telefone com máscara
-- react-qr-code — Geração de QR Codes
-- react-router-dom — Navegação entre páginas
-- Web Speech API — Transcrição de voz para texto
+### 🧑‍🎨 Frontend
+- React — Biblioteca principal da interface  
+- CSS Puro — Estilização personalizada  
+- Material UI (MUI) — Componentes visuais  
+- react-phone-input-2 — Entrada de telefone com máscara  
+- react-qr-code — Geração de QR Codes  
+- react-router-dom — Navegação entre páginas  
+- Web Speech API — Transcrição de voz para texto  
 - Lucide-react — Ícones modernos
 
-### Backend e Banco de Dados
-
-- Supabase — Armazenamento e gerenciamento de contatos
-- Vercel Serverless Functions — Deploy e pequenas funções de backend
-- Node.js — Ambiente de execução JavaScript
-- Express — Servidor e middlewares
+### 🧑‍💻 Backend e Banco de Dados
+- Supabase — Armazenamento e gerenciamento de contatos  
+- Vercel Serverless Functions — Deploy e pequenas funções de backend  
+- Node.js — Ambiente de execução JavaScript  
+- Express — Servidor e middlewares  
 - dotenv — Gerenciamento de variáveis de ambiente
+
+
 
 ## ⚡ Como Rodar Localmente
 
