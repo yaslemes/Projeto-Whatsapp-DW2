@@ -95,3 +95,36 @@ cp .env.example .env
 # Preencha o .env com suas credenciais do Supabase
 npm run dev
 # Acesse no navegador: http://localhost:5173
+
+
+## 📁 Estrutura do Projeto
+
+```bash
+📦 Projeto-Whatsapp-DW2
+├── 📁 api
+│   ├── index.js               (handler principal das rotas serverless)
+│   └── transcribe.js          (rota simulada para transcrição de áudio)
+│
+├── 📁 src
+│   ├── 📁 components
+│   │   ├── 📁 Button          (botões reutilizáveis da interface)
+│   │   ├── 📁 Contacts        (componentes da lista e formulário de contatos)
+│   │   ├── 📁 Input           (componentes de campo de entrada)
+│   │   ├── 📁 LinkGenerator   (gerador de link direto para WhatsApp)
+│   │   ├── 📁 UI              (componentes visuais e estilizados)
+│   │   └── 📁 VoiceChat       (lógica e interface do reconhecimento de voz)
+│   │
+│   ├── App.css                (estilos globais)
+│   ├── App.jsx                (estrutura principal da aplicação)
+│   ├── main.jsx               (ponto de entrada do React)
+│   └── supabaseClient.js      (configuração do Supabase)
+│
+├── .env                       (variáveis de ambiente — ignorado no Git)
+├── .gitignore                 (arquivos/pastas ignoradas)
+├── .vercel/                   (configurações do deploy na Vercel)
+├── eslint.config.js           (configuração do ESLint)
+├── index.html                 (arquivo base da aplicação)
+├── package.json               (dependências e scripts)
+├── package-lock.json          (controle de versões das dependências)
+├── server.js                  (servidor local opcional com Express)
+└── README.md
