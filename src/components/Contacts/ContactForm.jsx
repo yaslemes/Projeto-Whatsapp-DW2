@@ -5,15 +5,16 @@ import "./Css/ContactForm.css";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import Alert from "@mui/material/Alert";
 
 export default function ContactForm({ onAdd, editingContact }) {
   // Estados do formulário
   const [name, setName] = useState(""); // Nome do contato
   const [phoneDisplay, setPhoneDisplay] = useState(""); // Telefone formatado
   const [phoneRaw, setPhoneRaw] = useState(""); // Apenas dígitos
-  const [error, setError] = useState(""); // Mensagem de erro
+  const [erro, setErro] = useState("");// Mensagem de erro
 
-  useEffect(() => {
+  useEffect(() => { // Preenche o formulário se estiver editando
     if (editingContact) {
       setName(editingContact.name || "");
       setPhoneDisplay(editingContact.number || "");
@@ -35,10 +36,21 @@ export default function ContactForm({ onAdd, editingContact }) {
   // Envia formulário
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name.trim()) return setError("⚠️ Preencha o nome.");
-    if (!phoneRaw) return setError("⚠️ Preencha o telefone.");
-    if (phoneRaw.length < 10)
-      return setError("⚠️ Número inválido. Digite um número completo.");
+    if (!name.trim()) {
+    setErro("Preencha o nome.");
+    setTimeout(() => setCopied(""), 2000);
+    return;
+  }
+  if (!phoneRaw) {
+    setErro("Preencha o número.");
+    setTimeout(() => setCopied(""), 2000);
+    return;
+  }
+  if (phoneRaw.length < 11) {
+    setErro("Número incompleto. Verifique o DDD e o número.");
+    setTimeout(() => setCopied(""), 2000);
+    return;
+  }
 
     const contact = {
       name: name.trim(),
@@ -47,7 +59,7 @@ export default function ContactForm({ onAdd, editingContact }) {
     };
 
     onAdd(contact);
-    setError("");
+    setErro("");
     // Limpar formulário se for um novo contato
     if (!editingContact) {
       setName("");
@@ -100,7 +112,7 @@ export default function ContactForm({ onAdd, editingContact }) {
       </div>
 
       {/* Erros */}
-      {error && <p className="form-error">{error}</p>}
+      {erro && <Alert severity="error">{erro}</Alert>}
 
       {/* Botão Adicionar/Salvar */}
       <Button

@@ -34,7 +34,6 @@ export default function ContactList({
 
       {/* Lista de contatos */}
       <div className="contact-list">
-        {contacts.length === 0 && <p>Nenhum contato cadastrado.</p>}
         {contacts.map((contact) => (
           <ContactItem
             key={contact.id}

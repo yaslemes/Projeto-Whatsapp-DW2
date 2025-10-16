@@ -7,9 +7,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import "./Css/ContactItem.css";
 
+
 export default function ContactItem({
-  contact,
-  onDelete,
+  contact, 
+  onDelete, 
   onEdit, 
   onMessage,
   isSelected,

@@ -13,26 +13,29 @@ import QrCode2Icon from "@mui/icons-material/QrCode2";
 import Alert from "@mui/material/Alert";
 
 export default function LinkGenerator({ selectedContact }) {
-  const [phoneDisplay, setPhoneDisplay] = useState("");
-  const [phoneRaw, setPhoneRaw] = useState("");
-  const [mensagem, setMensagem] = useState("");
-  const [linkGerado, setLinkGerado] = useState("");
-  const [listening, setListening] = useState(false);
-  const [recognition, setRecognition] = useState(null);
-  const [showQRCode, setShowQRCode] = useState(false);
-  const [erro, setErro] = useState("");
-  const [copied, setCopied] = useState("");
+  const [phoneDisplay, setPhoneDisplay] = useState(""); // Telefone formatado
+  const [phoneRaw, setPhoneRaw] = useState(""); // Apenas dígitos
+  const [mensagem, setMensagem] = useState(""); // Mensagem opcional
+  const [linkGerado, setLinkGerado] = useState("");// Link gerado
+  const [listening, setListening] = useState(false); // Estado de escuta
+  const [recognition, setRecognition] = useState(null); // Reconhecimento de voz
+  const [showQRCode, setShowQRCode] = useState(false); // Mostra/oculta QR Code
+  const [erro, setErro] = useState(""); // Mensagem de erro
+  const [copied, setCopied] = useState(""); // Mensagem de sucesso
 
- 
-    // Atualiza campos quando um contato é selecionado
+  // Atualiza campos quando um contato é selecionado
   useEffect(() => {
     if (selectedContact) {
-      setPhoneRaw(selectedContact.rawNumber);
-      setPhoneDisplay(selectedContact.number); // ou formatted
+      const numeroLimpo = (
+        selectedContact.rawNumber ||
+        selectedContact.number ||
+        ""
+      ).replace(/\D/g, "");
+      setPhoneRaw(numeroLimpo);
+      setPhoneDisplay(selectedContact.number || "");
       setMensagem(selectedContact.message || "");
     }
   }, [selectedContact]);
-  
 
   // Inicializa reconhecimento de voz
   useEffect(() => {
@@ -41,8 +44,8 @@ export default function LinkGenerator({ selectedContact }) {
     speechRecognition.continuous = true;
     speechRecognition.interimResults = true;
     speechRecognition.lang = "pt-BR";
-
-    speechRecognition.onresult = (event) => {
+    
+    speechRecognition.onresult = (event) => { 
       let interimTranscript = "";
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i];
@@ -68,20 +71,20 @@ export default function LinkGenerator({ selectedContact }) {
     }
   };
 
-  const handlePhoneChange = (value, country, e, formattedValue) => {
+  const handlePhoneChange = (value, country, e, formattedValue) => { // value é o número completo
     const digitsOnly = (value || "").replace(/\D/g, "");
-    setPhoneRaw(digitsOnly);
+    setPhoneRaw(digitsOnly); // Apenas os dígitos
     setPhoneDisplay(formattedValue || "+" + digitsOnly);
   };
 
-  const prepararMensagem = () => {
+  const prepararMensagem = () => { // Gera o link
     if (!phoneRaw) return alert("Preencha o número.");
     const mensagemCodificada = encodeURIComponent(mensagem || "");
     const link = `https://wa.me/${phoneRaw}?text=${mensagemCodificada}`;
     setLinkGerado(link);
   };
 
-  const copiarLink = () => {
+  const copiarLink = () => { // Copia o link para a área de transferência
     if (!linkGerado) {
       setErro("Gere o link primeiro!");
       setTimeout(() => setErro(""), 2000);
@@ -93,16 +96,16 @@ export default function LinkGenerator({ selectedContact }) {
     });
   };
 
-  const abrirWhatsApp = () => {
+  const abrirWhatsApp = () => { // Abre o link direto no WhatsApp
     if (!linkGerado) {
       setErro("Gere o link primeiro!");
-      setTimeout(() => setErro(""), 2000);
+      setTimeout(() => setErro(""), 2500);
       return;
     }
     window.open(linkGerado, "_blank");
   };
 
-  const toggleQRCode = () => {
+  const toggleQRCode = () => { // Mostra/oculta o QR Code
     if (!linkGerado) {
       setErro("Gere o link primeiro!");
       setTimeout(() => setErro(""), 2000);
@@ -129,8 +132,8 @@ export default function LinkGenerator({ selectedContact }) {
           containerClass="phone-input-container"
           inputClass="phone-input"
           placeholder="Digite o número"
-          masks={{ br: "(..) .....-...." }}
-          countryCodeEditable={false}
+          masks={{ br: "(..) .....-...." }} // Máscara para Brasil
+          countryCodeEditable={false} // Não permite editar o código do país
         />
       </div>
 
@@ -144,10 +147,15 @@ export default function LinkGenerator({ selectedContact }) {
             type="text"
             value={mensagem}
             placeholder="Digite sua mensagem aqui..."
-            onChange={(e) => setMensagem(e.target.value)}
+            onChange={(e) => setMensagem(e.target.value)} // Atualiza mensagem
+            onKeyDown={(e) => { // Habilita enviar com a tecla Enter
+          if (e.key === "Enter") { 
+            e.preventDefault();
+            prepararMensagem();
+          }}}
           />
-          <div className="audio-icon-container" onClick={toggleListening}>
-            <MicIcon style={{ color: listening ? "red" : "gray" }} />
+          <div className="audio-icon-container" onClick={toggleListening}> 
+            <MicIcon style={{ color: listening ? "red" : "gray" }} /> 
           </div>
         </div>
       </div>
@@ -176,7 +184,9 @@ export default function LinkGenerator({ selectedContact }) {
               <QrCode2Icon fontSize="small" />
             </button>
           </div>
+          { /* Mensagens de erro e sucesso */ }
           {erro && <Alert severity="error">{erro}</Alert>}
+          {copied && <Alert severity="success">{copied}</Alert>}
 
           {showQRCode && linkGerado && (
             <div className="qrcode-container">

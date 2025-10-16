@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App.jsx";
 import WelcomeScreen from "./components/UI/WelcomeScreen.jsx";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById("root")).render( 
   <React.StrictMode>
     <BrowserRouter>
       <Routes>

@@ -24,7 +24,7 @@ function VoiceChat() {
     speechRecognition.continuous = true;
     speechRecognition.interimResults = true;
     speechRecognition.lang = "pt-BR";
-
+    
     speechRecognition.onresult = (event) => {
       let interimTranscript = "";
       for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -39,7 +39,7 @@ function VoiceChat() {
 
     setRecognition(speechRecognition);
   }, []);
-
+  // Alterna estado de escuta
   const toggleListening = () => {
     if (!recognition) return;
     if (listening) {
@@ -126,7 +126,7 @@ export default function App() {
         : [...prev, id]
     );
   };
-
+  // Selecionar ou desmarcar todos
   const toggleAllContacts = () => {
     if (selectedContacts.length === contacts.length) {
       setSelectedContacts([]);
@@ -146,27 +146,27 @@ export default function App() {
     fetchContacts();
   };
 
-  // Filtra contatos
-  const filteredContacts = contacts.filter(
-    (c) =>
+  // Filtra contatos por nome ou número
+  const filteredContacts = contacts.filter( 
+    (c) => // 
       c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       c.number.includes(searchTerm)
   );
 
-  const fetchContacts = async () => {
+  const fetchContacts = async () => { // Busca contatos no Supabase
     const { data, error } = await supabase
       .from("contacts")
       .select("id, name, number, created_at")
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false }); // Mais recentes primeiro
 
     if (error) console.error(error);
     else setContacts(data);
   };
   useEffect(() => {
-    fetchContacts();
+    fetchContacts(); 
   }, []);
 
-  const [selectedContact, setSelectedContact] = useState(null);
+  const [selectedContact, setSelectedContact] = useState(null); // Contato selecionado para o LinkGenerator
 
 
   return (
@@ -216,12 +216,12 @@ export default function App() {
             type="text"
             placeholder="Pesquisar contato..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)} // Atualiza termo de busca
             className="search-input"
           />
 
-          <ContactList
-            contacts={filteredContacts}
+          <ContactList // Lista de contatos com todas as funcionalidades
+            contacts={filteredContacts} 
             onDelete={deleteContact}
             onEdit={startEdit}
             onMessage={setSelectedContact}     
@@ -230,8 +230,8 @@ export default function App() {
             toggleAllContacts={toggleAllContacts}
             deleteSelectedContacts={deleteSelectedContacts}
           />
-
-          {filteredContacts.length === 0 && contacts.length > 0 && (
+          {/* Se não achar nada na busca */}
+          {filteredContacts.length === 0 && contacts.length > 0 && ( 
             <p className="no-results">Nenhum contato encontrado.</p>
           )}
         </div>
