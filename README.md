@@ -2,9 +2,30 @@
 
 Aplicação web desenvolvida como projeto da disciplina Desenvolvimento Web II (DW2). O WhatsUp! facilita a criação de links e QR Codes para o WhatsApp, armazena e gerencia contatos.
 
-## 👩‍💻 Autoras
-- Isabely Turquino  
-- Yasmym Lemes
+## 🧑‍💻 Autoras
+<div style="display: flex; justify-content: space-evenly; align-items: center; gap: 10px;">
+  <div style="text-align: center;">
+  
+  <div style="text-align: center;">
+    <p><strong>Isabely Turquino</strong></p>
+    <a href="mailto:isabelyturquino@alunos.utfpr.edu.br">
+      <img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank" alt="Isabely Turquino Gmail">
+    </a>
+    <a href="https://wa.me/554499755563" target="_blank">
+      <img src="https://img.shields.io/badge/-WhatsApp-%234CBB87?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Isabely Turquino WhatsApp">
+    </a>
+  </div>
+
+  <p><strong>Yasmym Lemes</strong></p>
+    <a href="mailto:ylemes@alunos.utfpr.edu.br">
+      <img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank" alt="Yasmym Lemes Gmail">
+    </a>
+    <a href="https://wa.me/5541996386250" target="_blank">
+      <img src="https://img.shields.io/badge/-WhatsApp-%234CBB87?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Yasmym Lemes WhatsApp">
+    </a>
+  </div>
+
+</div>
 
 ## 🚀 Acesse o Projeto
 🔗 [https://projeto-whatsapp-dw2.vercel.app/](https://projeto-whatsapp-dw2.vercel.app/)
