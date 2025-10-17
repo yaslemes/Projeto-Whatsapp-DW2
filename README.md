@@ -1,7 +1,6 @@
-# <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" style="vertical-align: middle;" /> WhatsUp!
+# <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" style="vertical-align: middle; margin-right: 8px;" /> WhatsUp!
 
-
-Aplicação web desenvolvida como projeto da disciplina Desenvolvimento Web II (DW2). O WhatsUp! facilita a criação de links e QR Codes para o WhatsApp, armazena e gerencia contatos.
+Aplicação web desenvolvida como projeto da disciplina _**Desenvolvimento Web II (DW2)**_. O _**WhatsUp!**_ facilita a criação de links e QR Codes para o WhatsApp, armazena e gerencia contatos.
 
 ## 🧑‍💻 Autoras
 <div style="display: flex; justify-content: space-evenly; align-items: center; gap: 10px;">
@@ -33,10 +32,9 @@ Aplicação web desenvolvida como projeto da disciplina Desenvolvimento Web II (
 
 ## 🧭 Visão Geral
 
-O **WhatsUp!** é desenvolvido com **React JS**, **CSS puro** e **Material UI**, integrado com **Supabase** para gerenciamento de contatos e **Vercel** para deploy com serverless functions.  
-A aplicação conta com uma **página inicial simples**, contendo um botão **“Começar”** que leva o usuário para a interface principal do sistema.  
-O sistema possui duas áreas principais: **Gerador de Links** e **Agenda de Contatos**, oferecendo praticidade, interatividade e eficiência ao usuário.
-
+O _**WhatsUp!**_ é desenvolvido com _**React JS**_, _**CSS puro**_ e _**Material UI**_, integrado com _**Supabase**_ para gerenciamento de contatos e _**Vercel**_ para deploy com serverless functions.  
+A aplicação conta com uma _**página inicial simples**_, contendo um botão _**“Começar”**_ que leva o usuário para a interface principal do sistema.  
+O sistema possui duas áreas principais: _**Gerador de Links**_ e _**Agenda de Contatos**_, oferecendo _**praticidade, interatividade e eficiência**_ ao usuário.
 
 <p align="center">
   <img src="https://i.imgur.com/AlRuzU3.png" alt="Mockup da Interface WhatsUp!" width="800">
@@ -44,39 +42,37 @@ O sistema possui duas áreas principais: **Gerador de Links** e **Agenda de Cont
 
 <p align="center"><em>Interface responsiva do WhatsUp! exibida em tablet, laptop e smartphone.</em></p>
 
-
-
 ## 🧩 Funcionalidades Principais
 
 ### 🏠 Página Inicial
-- Página de boas-vindas simples com botão “Começar”  
+- Página de boas-vindas simples com botão _**“Começar”**_  
 - Direciona o usuário para a aplicação principal
 
 ### 📱 Gerador de Links do WhatsApp
-- Entrada de número de telefone com formatação automática 
-- Campo para mensagem personalizada  
+- Entrada de número de telefone com _**formatação automática**_  
+- Campo para _**mensagem personalizada**_  
 - Geração automática de links no formato `wa.me`  
-- Opções para copiar o link, gerar QR Code ou abrir diretamente no WhatsApp
+- Opções para _**copiar o link, gerar QR Code ou abrir diretamente no WhatsApp**_
 
 ### 📂 Agenda de Contatos
-- Operações de CRUD completas com integração ao Supabase  
+- Operações de _**CRUD completas**_ com integração ao Supabase  
 - Botão para integração com o Gerador de Links  
-- Pesquisa rápida para localizar contatos pelo nome ou número  
+- _**Pesquisa rápida**_ para localizar contatos pelo nome ou número  
 - Cada contato contém: `id`, `created_at`, `name` e `number`
 
 ## 💡 Funcionalidades Extras
 
 ### 🎙️ Transcrição de Áudio para Mensagens
-- O usuário pode gravar sua voz diretamente na aplicação  
-- A gravação é convertida automaticamente em texto e preenchida no campo de mensagem do Gerador de Links  
-- Facilita o envio de mensagens sem digitação, tornando a aplicação mais prática e acessível
+- O usuário pode _**gravar sua voz diretamente na aplicação**_  
+- A gravação é _**convertida automaticamente em texto**_ e preenchida no campo de mensagem  
+- Facilita o envio de mensagens _**sem digitação**_, tornando a aplicação mais _**prática e acessível**_
 
 ### 🖼️ Geração Automática de QR Code
-- Cada link criado gera um QR Code correspondente usando `react-qr-code`  
-- Permite compartilhar ou abrir a conversa em outro dispositivo apenas escaneando o código
+- Cada link criado gera um _**QR Code correspondente**_ usando `react-qr-code`  
+- Permite _**compartilhar ou abrir a conversa em outro dispositivo**_ apenas escaneando o código
 
 ### 🌗 Modo Claro e Escuro 
-- Alternância rápida entre temas claro e escuro para melhor experiência visual  
+- _**Alternância rápida entre temas**_ claro e escuro para melhor experiência visual  
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -96,9 +92,9 @@ O sistema possui duas áreas principais: **Gerador de Links** e **Agenda de Cont
 ![Lucide](https://img.shields.io/badge/Lucide-000000?style=for-the-badge&logo=lucide&logoColor=white)
 
 ### 🧑‍🎨 Frontend
-- React — Biblioteca principal da interface  
-- CSS Puro — Estilização personalizada  
-- Material UI (MUI) — Componentes visuais  
+- _**React**_ — Biblioteca principal da interface  
+- _**CSS Puro**_ — Estilização personalizada  
+- _**Material UI (MUI)**_ — Componentes visuais  
 - react-phone-input-2 — Entrada de telefone com máscara  
 - react-qr-code — Geração de QR Codes  
 - react-router-dom — Navegação entre páginas  
@@ -106,19 +102,17 @@ O sistema possui duas áreas principais: **Gerador de Links** e **Agenda de Cont
 - Lucide-react — Ícones modernos
 
 ### 🧑‍💻 Backend e Banco de Dados
-- Supabase — Armazenamento e gerenciamento de contatos  
-- Vercel Serverless Functions — Deploy e pequenas funções de backend  
-- Node.js — Ambiente de execução JavaScript  
+- _**Supabase**_ — Armazenamento e gerenciamento de contatos  
+- _**Vercel Serverless Functions**_ — Deploy e pequenas funções de backend  
+- _**Node.js**_ — Ambiente de execução JavaScript  
 - Express — Servidor e middlewares  
 - dotenv — Gerenciamento de variáveis de ambiente
-
-
 
 ## ⚡ Como Rodar Localmente
 
 ### 🧩 Pré-requisitos
-- Node.js instalado  
-- Conta no [Supabase](https://supabase.com/)  
+- _**Node.js instalado**_  
+- _**Conta no Supabase**_  
 - Arquivo `.env` configurado com suas credenciais do Supabase (`VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`)
 
 ### 🛠️ Passos
@@ -130,7 +124,6 @@ cp .env.example .env
 # Preencha o .env com suas credenciais do Supabase
 npm run dev
 # Acesse no navegador: http://localhost:5173
-```
 
 
 ## 📁 Estrutura do Projeto
@@ -163,3 +156,5 @@ npm run dev
 ├── package-lock.json          (controle de versões das dependências)
 ├── server.js                  (servidor local opcional com Express)
 └── README.md
+
+
