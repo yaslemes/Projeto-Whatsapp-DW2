@@ -1,4 +1,5 @@
-# 💬 WhatsUp!
+# <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" style="vertical-align: middle;" /> WhatsUp!
+
 
 Aplicação web desenvolvida como projeto da disciplina Desenvolvimento Web II (DW2). O WhatsUp! facilita a criação de links e QR Codes para o WhatsApp, armazena e gerencia contatos.
 
