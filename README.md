@@ -124,6 +124,7 @@ cp .env.example .env
 # Preencha o .env com suas credenciais do Supabase
 npm run dev
 # Acesse no navegador: http://localhost:5173
+```
 
 
 ## 📁 Estrutura do Projeto
